@@ -1,0 +1,71 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-asset-import-tradingnetworks-r-<TAG>
+spec:
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false" 
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: asset-import-tradingnetworks
+        image: wm.msr.tn:10.15
+        command: 
+        - "sh"
+        - "-c"
+        - |
+          mkdir -p /opt/softwareag/install/bin
+          cd /tmp
+          cp /tmp/* /scripts/
+          cd /scripts
+          chmod 755 import.sh
+          ./import.sh
+        volumeMounts:
+          - mountPath: /scripts
+            name: create-dir
+          - mountPath: /tmp
+            name: import-script
+          - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
+            subPath: licenseKey.xml
+            name: licensekey
+          - name: application-properties
+            mountPath: /opt/softwareag/IntegrationServer/application.properties
+            subPath: application.properties   
+          - name: setenv-cp  
+            mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/setcp.sh
+            subPath: setcp.sh        
+          - name: setenv   
+            mountPath: /opt/softwareag/install/bin/setenv.sh
+            subPath: setenv.sh       
+          - name: tn-data-load   
+            mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/ExportedData.bin
+            subPath: ExportedData.bin
+          - name: tn-data-load-config 
+            mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/TNImport.xml
+            subPath: TNImport.xml                                     
+      volumes:
+        - name: import-script
+          configMap:
+            name: tn-importexportscript-cm
+        - name: create-dir
+          emptyDir: {}
+        - name: licensekey
+          configMap:
+            name: webmethodslicensekeys
+        - name: application-properties
+          configMap:
+            name: tn-appprop-cm      
+        - name: setenv-cp
+          configMap:
+            name: tn-utilfiles-cm    
+        - name: setenv
+          configMap:
+            name: tn-utilfiles-cm
+        - name: tn-data-load  
+          configMap:
+            name: tn-dataload-cm     
+        - name: tn-data-load-config
+          configMap:
+            name: tn-dataload-cm                                 

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mws
+  labels:
+    app: mws
+  annotations:
+    prometheus.io/scrape: 'true'    
+    prometheus.io/port: '8585'
+spec:
+  selector:
+    app: mws
+    component: mws
+  ports:
+    - port: 8585
+      name: http-server
+      targetPort: 8585
+      nodePort: 30211
+  type: NodePort
+  sessionAffinity: ClientIP

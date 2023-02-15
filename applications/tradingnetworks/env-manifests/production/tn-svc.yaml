@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tradingnetworks
+  labels:
+    app: tradingnetworks
+  annotations:
+    prometheus.io/scrape: 'true'    
+    prometheus.io/port: '5555'
+spec:
+  selector:
+    app: tradingnetworks
+    component: msr
+  ports:
+    - port: 5555
+      name: http-server
+      targetPort: 5555
+      nodePort: 30201
+  type: NodePort
+  sessionAffinity: ClientIP

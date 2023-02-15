@@ -1,0 +1,339 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: webmethodslicensekeys
+data:
+  licenseKey.xml: |
+    <?xml version="1.0" encoding="US-ASCII"?>
+
+    <SoftwareAG_License>
+
+    <Component Id="SalesInfo">
+
+    <SerialNumber>0000497888</SerialNumber>
+
+    <LicenseKey>68D56FFE95C8E4FEA38EFAEB2AEC97CE</LicenseKey>
+
+    <CustomerID>3150000</CustomerID>
+
+    <CustomerName>Software AG for Solution Book Internal USE ONLY</CustomerName>
+
+    <ContractDetails>SOFTWARE AG internal license solely for sales promotion and internal training purposes. Please note that this access key is for your personal use only. Access and software shall not be forwarded to anybody else</ContractDetails>
+
+    <ContractPosNumber>10</ContractPosNumber>
+
+    <LicenseTypeDetails>Internal</LicenseTypeDetails>
+
+    <AutoCallHome>No</AutoCallHome>
+
+    </Component>
+
+    <Component Id="ProductInfo">
+
+    <ExpirationDate>2023/10/31</ExpirationDate>
+
+    <OS>win, SunOS, Linux, Linux S390, AIX, HP-UX, MacOS</OS>
+
+    <ProductCode>MSC</ProductCode>
+
+    <ProductID/>
+
+    <ProductName>webMethods Microservices Runtime</ProductName>
+
+    <ProductVersion>10.0</ProductVersion>
+
+    <Usage/>
+
+    <RenewalDate/>
+
+    <HigherLevPosNr/>
+
+    <HigherLevProdCode/>
+
+    <HigherLevProdName/>
+
+    </Component>
+
+    <Component Id="Integration Server">
+
+    <ProductCode>PIE</ProductCode>
+
+    <ProductVersion>10.0</ProductVersion>
+
+    <ConcurrentSessions>Unlimited</ConcurrentSessions>
+
+    <Clustering>yes</Clustering>
+
+    <PubSub>yes</PubSub>
+
+    <ART>yes</ART>
+
+    <RemoteInvoke>yes</RemoteInvoke>
+
+    <GuaranteedDelivery>yes</GuaranteedDelivery>
+
+    <SecurityAuditing>yes</SecurityAuditing>
+
+    <DistributedCache>yes</DistributedCache>
+
+    <EnterpriseGateway>no</EnterpriseGateway>
+
+    <Microservices>yes</Microservices>
+
+    </Component>
+
+    <Component Id="Trading Networks">
+
+    <ProductCode/>
+
+    <MaxPartners/>
+
+    </Component>
+
+    <Component Id="LicenseInfo">
+
+    <PriceUnit>CoreD</PriceUnit>
+
+    <PriceQuantity>16</PriceQuantity>
+
+    <TypeOfInstallation/>
+
+    <LicenseType/>
+
+    <ExtendedRights/>
+
+    <LicenseVersion>1.2</LicenseVersion>
+
+    <Metering>MNO</Metering>
+
+    </Component>
+
+    </SoftwareAG_License>
+  terracotta-license.key: |
+    # This software license, granted by Terracotta Inc. - a Software AG company, is valid for and may only be used
+    # by the licensee of this product ("Licensee").
+    # Descriptor version: 4
+    # ------------------------------------------------------------------------------------
+    Date of Issue: 2022-10-06
+    Expiration Date: 2023-10-31
+    License Type: Commercial
+    License Number: FOR INTERNAL USE ONLY
+    Licensee: SOFTWARE AG
+    Product: BigMemory Max
+    Edition: FX
+    Capabilities: TMC, WAN, authentication, ehcache, ehcache offheap, failover tuning, search, security, server array offheap, server striping
+    Max Client Count: 50
+    webMethods OEM: false
+    ehcache.maxOffHeap: 500G
+    terracotta.serverArray.maxDataStorage: 500G
+
+    Signature: MCwCFF7qkgcIMakFskGH3mGWX2jc3482AhRugIbj2xn7vnJjYutNBU8XZxlmNg==    
+  license.key: |
+    # This software license, granted by Terracotta Inc. - a Software AG company, is valid for and may only be used
+    # by the licensee of this product ("Licensee").
+    # Descriptor version: 4
+    # ------------------------------------------------------------------------------------
+    Date of Issue: 2022-10-06
+    Expiration Date: 2023-10-31
+    License Type: Commercial
+    License Number: FOR INTERNAL USE ONLY
+    Licensee: SOFTWARE AG
+    Product: BigMemory Max
+    Edition: FX
+    Capabilities: TMC, WAN, authentication, ehcache, ehcache offheap, failover tuning, search, security, server array offheap, server striping
+    Max Client Count: 50
+    webMethods OEM: false
+    ehcache.maxOffHeap: 500G
+    terracotta.serverArray.maxDataStorage: 500G
+
+    Signature: MCwCFF7qkgcIMakFskGH3mGWX2jc3482AhRugIbj2xn7vnJjYutNBU8XZxlmNg==
+  licence.xml: |
+    <?xml version="1.0" encoding="US-ASCII"?>
+    <SoftwareAG_License>
+    <Component Id="SalesInfo">
+    <SerialNumber>0000634795</SerialNumber>
+    <LicenseKey>58D9CE34916FE0FA0E47583826C98074</LicenseKey>
+    <CustomerID>3150000</CustomerID>
+    <CustomerName>Software AG for Solution Book Internal USE ONLY</CustomerName>
+    <ContractDetails>SOFTWARE AG internal license solely for sales promotion and internal training purposes. Please note that this access key is for your personal use only. Access and software shall not be forwarded to anybody else</ContractDetails>
+    <ContractPosNumber>10</ContractPosNumber>
+    <LicenseTypeDetails>Internal</LicenseTypeDetails>
+    <AutoCallHome>No</AutoCallHome>
+    </Component>
+    <Component Id="ProductInfo">
+    <ExpirationDate>2023/10/31</ExpirationDate>
+    <OS>win, SunOS, Linux, Linux S390, AIX, MacOS</OS>
+    <ProductCode>NUMWF</ProductCode>
+    <ProductID/>
+    <ProductName>Universal Messaging Fully Featured</ProductName>
+    <ProductVersion>10.5</ProductVersion>
+    <Usage/>
+    <RenewalDate/>
+    <HigherLevPosNr/>
+    <HigherLevProdCode/>
+    <HigherLevProdName/>
+    </Component>
+    <Component Id="Universal Messaging">
+    <ProductCode>NUM</ProductCode>
+    <ProductVersion>10.5</ProductVersion>
+    <MixedChannels>yes</MixedChannels>
+    <ReliableChannels>yes</ReliableChannels>
+    <PersistentChannels>yes</PersistentChannels>
+    <JMSClients>yes</JMSClients>
+    <WebClients>yes</WebClients>
+    <MobileClients>yes</MobileClients>
+    <EnterpriseClients>yes</EnterpriseClients>
+    <Plugins>yes</Plugins>
+    <DataGroups>yes</DataGroups>
+    <Joins>yes</Joins>
+    <Clustering>yes</Clustering>
+    <Scheduling>yes</Scheduling>
+    <MessagingPriority>yes</MessagingPriority>
+    <HTTPSupport>yes</HTTPSupport>
+    <SharedMemory>yes</SharedMemory>
+    <Multicast>yes</Multicast>
+    <MQTT>yes</MQTT>
+    <AMQP>yes</AMQP>
+    <JavaClients>yes</JavaClients>
+    <Queues>yes</Queues>
+    <DataStreams>yes</DataStreams>
+    <Zones>yes</Zones>
+    <HorizontalScaling>yes</HorizontalScaling>
+    </Component>
+    <Component Id="LicenseInfo">
+    <PriceUnit>RES</PriceUnit>
+    <PriceQuantity>1000</PriceQuantity>
+    <TypeOfInstallation/>
+    <LicenseType/>
+    <ExtendedRights/>
+    <LicenseVersion>1.2</LicenseVersion>
+    <Metering>MNO</Metering>
+    </Component>
+    </SoftwareAG_License>    
+  apilicenseKey.xml: |
+    <?xml version="1.0" encoding="US-ASCII"?>
+    <SoftwareAG_License>
+    <Component Id="SalesInfo">
+    <SerialNumber>0000709316</SerialNumber>
+    <LicenseKey>E339DC97D75149D3C913928B4B4CDBF8</LicenseKey>
+    <CustomerID>Software AG for Solution Book Internal USE ONLY</CustomerID>
+    <CustomerName>3150000</CustomerName>
+    <ContractDetails>Internal Keys</ContractDetails>
+    <ContractPosNumber>10</ContractPosNumber>
+    <LicenseTypeDetails>Internal</LicenseTypeDetails>
+    <AutoCallHome>No</AutoCallHome>
+    </Component>
+    <Component Id="ProductInfo">
+    <ExpirationDate>2023/10/31</ExpirationDate>
+    <OS>win, SunOS, Linux, Linux S390, AIX, HP-UX, MacOS</OS>
+    <ProductCode>YAIAA</ProductCode>
+    <ProductID/>
+    <ProductName>API Gateway Advanced Edition</ProductName>
+    <ProductVersion>10.7</ProductVersion>
+    <Usage/>
+    <RenewalDate/>
+    <HigherLevPosNr/>
+    <HigherLevProdCode/>
+    <HigherLevProdName/>
+    </Component>
+    <Component Id="Integration Server">
+    <ProductCode>YAI</ProductCode>
+    <ProductVersion>10.7</ProductVersion>
+    <ConcurrentSessions>Unlimited</ConcurrentSessions>
+    <Clustering>yes</Clustering>
+    <PubSub>no</PubSub>
+    <ART>no</ART>
+    <RemoteInvoke>yes</RemoteInvoke>
+    <GuaranteedDelivery>no</GuaranteedDelivery>
+    <SecurityAuditing>yes</SecurityAuditing>
+    <DistributedCache>yes</DistributedCache>
+    <EnterpriseGateway>yes</EnterpriseGateway>
+    <Microservices>yes</Microservices>
+    </Component>
+    <Component Id="APIGateway">
+    <PolicyManagementThreatProtection>yes</PolicyManagementThreatProtection>
+    <PolicyManagementGateway>yes</PolicyManagementGateway>
+    <ApplicationManagement>yes</ApplicationManagement>
+    <APIManagement>yes</APIManagement>
+    <AppMesh>yes</AppMesh>
+    </Component>
+    <Component Id="LicenseInfo">
+    <PriceUnit>CoreD</PriceUnit>
+    <PriceQuantity>16</PriceQuantity>
+    <TypeOfInstallation/>
+    <LicenseType/>
+    <ExtendedRights/>
+    <LicenseVersion>1.2</LicenseVersion>
+    <Metering>MNO</Metering>
+    </Component>
+    </SoftwareAG_License>        
+  microgateway-license.xml: |
+    <?xml version="1.0" encoding="US-ASCII"?>
+
+    <SoftwareAG_License>
+
+    <Component Id="SalesInfo">
+
+    <SerialNumber>0000497887</SerialNumber>
+
+    <LicenseKey>8512011E3A92D00DDAC419AE31913A10</LicenseKey>
+
+    <CustomerID>3150000</CustomerID>
+
+    <CustomerName>Software AG for Solution Book Internal USE ONLY</CustomerName>
+
+    <ContractDetails>SOFTWARE AG internal license solely for sales promotion and internal training purposes. Please note that this access key is for your personal use only. Access and software shall not be forwarded to anybody else</ContractDetails>
+
+    <ContractPosNumber>10</ContractPosNumber>
+
+    <LicenseTypeDetails>Internal</LicenseTypeDetails>
+
+    <AutoCallHome/>
+
+    </Component>
+
+    <Component Id="ProductInfo">
+
+    <ExpirationDate>2023/10/31</ExpirationDate>
+
+    <OS>win, SunOS, Linux, AIX, HP-UX</OS>
+
+    <ProductCode>YAM</ProductCode>
+
+    <ProductID/>
+
+    <ProductName>webMethods Microgateway</ProductName>
+
+    <ProductVersion>10.3</ProductVersion>
+
+    <Usage/>
+
+    <RenewalDate/>
+
+    <HigherLevPosNr/>
+
+    <HigherLevProdCode/>
+
+    <HigherLevProdName/>
+
+    </Component>
+
+    <Component Id="LicenseInfo">
+
+    <PriceUnit>ST</PriceUnit>
+
+    <PriceQuantity>16</PriceQuantity>
+
+    <TypeOfInstallation/>
+
+    <LicenseType/>
+
+    <ExtendedRights/>
+
+    <LicenseVersion>1.2</LicenseVersion>
+
+    <Metering/>
+
+    </Component>
+
+    </SoftwareAG_License>    

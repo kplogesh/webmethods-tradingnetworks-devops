@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tn-importexportscript-cm
+data:
+  export.sh: |-
+    #!/bin/bash
+    # Initiate the startup for MSR to effect the JDBC pools
+    /opt/softwareag/IntegrationServer/bin/startup.sh
+
+    # Wait for MSR to come up
+    while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
+      sleep 2;
+    done     
+
+    # When startup is complete, initiate the shutdown sequence
+    /opt/softwareag/IntegrationServer/bin/shutdown.sh 
+
+    # When MSR is inactive, initiate the import process
+    cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
+    # Execute the TN export command to effect the new assets
+    ./tnexport.sh -bin ExportedData -all
+
+    # Push to Repository
+    curl --request POST --data-binary "@ExportedData" 
+  import.sh: |-
+    #!/bin/bash
+    # Initiate the startup for MSR to effect the JDBC pools
+    /opt/softwareag/IntegrationServer/bin/startup.sh
+
+    # Wait for MSR to come up
+    while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
+      sleep 2;
+    done     
+
+    # When startup is complete, initiate the shutdown sequence
+    /opt/softwareag/IntegrationServer/bin/shutdown.sh 
+
+    # When MSR is inactive, initiate the import process
+    cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
+    # Execute the TN import command to effect the new assets
+    ./tnimport.sh -file TNImport.xml
