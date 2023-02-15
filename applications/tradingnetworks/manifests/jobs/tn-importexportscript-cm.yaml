@@ -21,12 +21,12 @@ data:
     # Execute the TN export command to effect the new assets
 
     echo "Starting export--------------------"
-    ./tnexport.sh -xml ExportedData<TAG> -all
+    ./tnexport.sh -xml ExportedData<TAG> -zipdir /scripts -all
     echo "Completing export------------------"
 
     # Push to Repository
     # use base64 to encode binary data and -w0 all in one-line stream
-    content=$(base64 --wrap=0 /opt/softwareag/IntegrationServer/ExportedData<TAG>.zip)
+    content=$(base64 --wrap=0 /scripts/ExportedData<TAG>.zip)
     message="Commit from Jenkins task"
     committer_name="Jenkins"
     committer_email="jenkins@jenkins.com"
