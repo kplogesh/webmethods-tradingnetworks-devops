@@ -14,6 +14,3 @@ kubectl get jobs | grep job-asset-export-tradingnetworks-r-$1
 kubectl describe job job-asset-export-tradingnetworks-r-$1
 # Tail the logs of the job that has been created
 kubectl logs -f job/job-asset-import-tradingnetworks-r-$1
-
-# Execute the export task by using the source pod where trading networks is deployed
-kubectl exec deploy/tradingnetworks -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData -all;cat /opt/softwareag/IntegrationServer/ExportedData.zip" > ExportedData-$1.zip                   

@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: job-asset-import-tradingnetworks-r-<TAG>
+  name: job-asset-export-tradingnetworks-r-<TAG>
 spec:
   template:
     metadata:
@@ -10,7 +10,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - name: asset-import-tradingnetworks
+      - name: asset-export-tradingnetworks
         image: wm.msr.tn:10.15
         command: 
         - "sh"
