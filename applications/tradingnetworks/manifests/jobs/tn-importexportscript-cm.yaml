@@ -21,7 +21,7 @@ data:
     # Execute the TN export command to effect the new assets
 
     echo "Starting export--------------------"
-    ./tnexport.sh -xml ExportedData<TAG> -zipdir /scripts -all
+    ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all
     echo "Completing export------------------"
 
     # Push to Repository
