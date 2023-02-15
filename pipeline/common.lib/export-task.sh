@@ -6,7 +6,7 @@ kubectl config set-context --current --namespace=$2
 cd applications/tradingnetworks/manifests/jobs
 sed -i "s/<TAG>/$1/" tn-assetexport-job.yaml
 sed -i "s/<TAG>/$1/" tn-importexportscript-cm.yaml
-kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../tn-utilfiles-cm.yaml -f .
+kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../tn-utilfiles-cm.yaml -f tn-assetexport-job.yaml
 sleep 5
 
 # List the k8s jobs that has been created

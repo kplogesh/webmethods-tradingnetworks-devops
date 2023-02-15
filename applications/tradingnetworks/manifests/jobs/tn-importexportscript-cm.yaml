@@ -19,7 +19,7 @@ data:
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
-    ./tnexport.sh -xml ExportedData<TAG>.xml -zipdir /opt/softwareag/IntegrationServer -all
+    ./tnexport.sh -xml ExportedData<TAG> -all
 
     # Push to Repository
     # use base64 to encode binary data and -w0 all in one-line stream
