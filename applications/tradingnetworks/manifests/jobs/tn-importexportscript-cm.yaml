@@ -19,10 +19,33 @@ data:
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
-    ./tnexport.sh -bin ExportedData -all
+    ./tnexport.sh -xml ExportedData-<TAG>.xml -zipdir /opt/softwareag/IntegrationServer/packages/WmTN/bin/ -all
 
     # Push to Repository
-    curl --request POST --data-binary "@ExportedData" 
+    # use base64 to encode binary data and -w0 all in one-line stream
+    content=$(base64 --wrap=0 ExportedData-<TAG>.zip)
+    message="Commit from Jenkins task"
+    committer_name="Jenkins"
+    committer_email="jenkins@jenkins.com"
+    branch="develop"
+
+    JSON_STRING="{
+    \"message\":\"${message}\",
+    \"committer\":{\"name\":\"${committer_name}\",\"email\":\"${committer_email}\"},
+    \"content\":\"${content}\",
+    \"branch\":\"${branch}\"
+    }"
+
+    echo ${JSON_STRING} |
+    curl \
+      -X PUT \
+      -H "Accept: application/vnd.github+json" \
+      -H "Content-Type: application/json" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      -H "Authorization: Bearer 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" \
+      --url https://api.github.com/repos/kplogesh/webmethods-tradingnetworks-devops/contents/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-<TAG>.zip \
+      --data-binary @-
+
   import.sh: |-
     #!/bin/bash
     # Initiate the startup for MSR to effect the JDBC pools
@@ -38,5 +61,9 @@ data:
 
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
+
+    # Download from Repository
+    curl -LJO "https://raw.githubusercontent.com/kplogesh/webmethods-tradingnetworks-devops/develop/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-<TAG>.zip > ExportedData-<TAG>.zip 
+    
     # Execute the TN import command to effect the new assets
     ./tnimport.sh -file TNImport.xml
