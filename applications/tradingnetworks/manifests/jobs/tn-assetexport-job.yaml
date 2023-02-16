@@ -8,8 +8,6 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false" 
     spec:
-      securityContext:
-        runAsUser: 1724
       restartPolicy: Never
       containers:
       - name: asset-export-tradingnetworks
@@ -31,8 +29,15 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
-          /tmp/export.sh
+          cp /tmp/* /scripts/
+          cd /scripts
+          chmod 755 export.sh
+          ./export.sh
         volumeMounts:
+          - mountPath: /scripts
+            name: scripts-dir
+          - mountPath: /tmp
+            name: tmp-dir            
           - mountPath: /tmp
             name: export-script
           - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
@@ -51,7 +56,10 @@ spec:
         - name: export-script
           configMap:
             name: tn-importexportscript-cm
-            defaultMode: 0777
+        - name: scripts-dir
+          emptyDir: {}
+        - name: tmp-dir
+          emptyDir: {}          
         - name: licensekey
           configMap:
             name: webmethodslicensekeys
