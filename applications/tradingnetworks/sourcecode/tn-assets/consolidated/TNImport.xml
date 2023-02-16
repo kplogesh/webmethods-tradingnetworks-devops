@@ -1,6 +1,6 @@
 <ImportOptions>
-        <option name="importDataFileName">ExportedData-<TAG>.zip</option>
-        <option name="importType">zip</option>
+        <option name="importDataFileName">ExportedData-<TAG>.bin</option>
+        <option name="importType">bin</option>
         <option name="all">false</option>
         <option name="force">true</option>
         <option name="replaceRuleList">false</option>

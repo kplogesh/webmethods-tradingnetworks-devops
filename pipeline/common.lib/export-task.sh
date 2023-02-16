@@ -17,12 +17,11 @@ kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwarea
 kubectl delete po pod-asset-export-tradingnetworks-r-$1
 if [ -f "ExportedData-$1.zip" ]; then
     echo "ExportedData-$1.zip exists."
-#    ../../../../pipeline/common.lib/send-github.sh $1 $3
+    unzip ExportedData-$1.zip
     git config user.name "Jenkins"
     git config user.email "Jenkins@jenkins.com"
-    git add ExportedData-$1.zip
+    git add ExportedData-$1.bin
     git commit -m "committing exported tn data"
-    git show-ref
     git push origin HEAD:develop
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
