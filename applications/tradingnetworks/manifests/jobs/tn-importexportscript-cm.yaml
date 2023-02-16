@@ -6,7 +6,7 @@ data:
   export.sh: |-
     #!/bin/bash
     # Initiate the startup for MSR to effect the JDBC pools
-    /opt/softwareag/IntegrationServer/bin/startContainer.sh &
+    /opt/softwareag/IntegrationServer/bin/startup.sh
 
     # Wait for MSR to come up
     while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
