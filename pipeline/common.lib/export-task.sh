@@ -12,6 +12,14 @@ kubectl describe pod pod-asset-export-tradingnetworks-r-$1
 
 kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-r-$1
 
-kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > ExportedData-$1.zip
-echo "completed waiting"
-ls -ltr
+filename=applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip
+kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > $filename
+
+if [ -f "$filename" ]; then
+    echo "$filename exists."
+    kubectl delete po pod-asset-export-tradingnetworks-r-$1
+    pipeline/common.lib/send-github.sh $1 $2
+else 
+    echo "$filename does not exist. Please verify the logs"
+    exit 1
+fi
