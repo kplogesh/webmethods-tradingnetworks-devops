@@ -67,7 +67,7 @@ data:
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
 
     # Download from Repository
-    curl -LJO "https://raw.githubusercontent.com/kplogesh/webmethods-tradingnetworks-devops/develop/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-<TAG>.zip > ExportedData-<TAG>.zip 
+    curl -LJO "https://raw.githubusercontent.com/kplogesh/webmethods-tradingnetworks-devops/develop/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-<TAG>.zip" > ExportedData-<TAG>.zip 
     
     # Execute the TN import command to effect the new assets
     ./tnimport.sh -file TNImport.xml
