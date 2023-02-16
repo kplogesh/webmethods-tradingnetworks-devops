@@ -10,7 +10,9 @@ kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../tn-utilfiles-cm
 sleep 5
 
 # List the k8s jobs that has been created
-kubectl get jobs | grep job-asset-export-tradingnetworks-r-$1
-kubectl describe job job-asset-export-tradingnetworks-r-$1
-# Tail the logs of the job that has been created
-kubectl logs -f job/job-asset-export-tradingnetworks-r-$1
+kubectl get pods | grep pod-asset-export-tradingnetworks-r-$1
+kubectl describe pod pod-asset-export-tradingnetworks-r-$1
+
+kubectl wait --for=condition=ready pod/pod-asset-export-tradingnetworks-r-$1
+
+echo "completed waiting"
