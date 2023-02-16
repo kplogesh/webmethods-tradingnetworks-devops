@@ -33,7 +33,7 @@ pipeline {
                     }"
                     # Commit the exported content in Github
                     echo ${JSON_STRING} |
-                    curl -X PUT -H "Accept: application/vnd.github+json" -H "Content-Type: application/json" -H "X-GitHub-Api-Version: 2022-11-28" -H "Authorization: Bearer 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" --url https://api.github.com/repos/kplogesh/webmethods-tradingnetworks-devops/contents/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip --data-binary @-
+                    curl -X PUT -H "Accept: application/vnd.github+json" -H "Content-Type: application/json" -H "X-GitHub-Api-Version: 2022-11-28" -H "Authorization: Bearer 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" --url https://api.github.com/repos/kplogesh/webmethods-tradingnetworks-devops/contents/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip --data-binary @-
                 '''
             }
         }          
