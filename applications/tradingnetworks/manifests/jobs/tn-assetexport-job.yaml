@@ -31,10 +31,27 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
+          # Initiate the startup for MSR to effect the JDBC pools
+          /opt/softwareag/IntegrationServer/bin/startup.sh
+
+          # Wait for MSR to come up
+          while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
+            sleep 2;
+            tail -20f /opt/softwareag/IntegrationServer/logs/server.log
+          done     
+
+          # When MSR is inactive, initiate the import process
+          cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
+          # Execute the TN export command to effect the new assets
+          echo "Starting export--------------------"
+          ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all
+          echo "Completing export------------------"
+
+          # When startup is complete, initiate the shutdown sequence
+          /opt/softwareag/IntegrationServer/bin/shutdown.sh           
           cp /tmp/* /scripts/
           cd /scripts
           chmod 755 export.sh
-          ./export.sh
         volumeMounts:
           - mountPath: /scripts
             name: scripts-dir     
