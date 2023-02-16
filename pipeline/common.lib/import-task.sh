@@ -19,4 +19,4 @@ kubectl get jobs | grep job-asset-import-tradingnetworks-r-$1
 kubectl logs -f job/job-asset-import-tradingnetworks-r-$1
 
 # Delete the configmap containing the exported data from source trading networks
-kubectl delete cm tn-dataload-cm
+# kubectl delete cm tn-dataload-cm
