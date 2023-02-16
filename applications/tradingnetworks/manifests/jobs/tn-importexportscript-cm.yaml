@@ -11,8 +11,9 @@ data:
     # Wait for MSR to come up
     while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
       sleep 2;
+      tail -20f /opt/softwareag/IntegrationServer/logs/server.log
     done     
-    sleep 200
+
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
