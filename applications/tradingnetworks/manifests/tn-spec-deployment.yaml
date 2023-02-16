@@ -22,7 +22,7 @@ spec:
         - "tradingnetworks"        
       containers:      
         - name: insurance-fitness-tradingnetworks-container       
-          image: wm.msr.tn:10.15
+          image: wm.msr.tn.app:r-<TAG>
           imagePullPolicy: IfNotPresent   
         # Resources required for the apigateway to function. CPUs and Memory configurations.
           resources:
