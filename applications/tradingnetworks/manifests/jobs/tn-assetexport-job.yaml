@@ -20,7 +20,7 @@ spec:
         - |
           mkdir -p /opt/softwareag/install/bin
           cd /scripts
-          nohup ./export.sh & fg
+          ./export.sh
           tail -f nohup.out
         volumeMounts:
           - mountPath: /scripts

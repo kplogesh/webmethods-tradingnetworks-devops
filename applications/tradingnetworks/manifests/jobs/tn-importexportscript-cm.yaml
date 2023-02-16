@@ -18,7 +18,8 @@ data:
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
     echo "Starting export--------------------"
-    ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all
+    nohup ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all & fg
+    tail -f nohup.out
     echo "Completing export------------------"
 
     # When startup is complete, initiate the shutdown sequence
