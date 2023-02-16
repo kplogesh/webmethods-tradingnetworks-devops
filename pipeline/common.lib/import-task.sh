@@ -5,8 +5,9 @@ kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
 
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
 sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-assetimport-job.yaml
+sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-importexportscript-cm.yaml
 
-kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../manifests/tn-utilfiles-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../../manifests/jobs/tn-assetimport-job.yaml
+kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../manifests/tn-utilfiles-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../../manifests/jobs/tn-importexportscript-cm.yaml -f ../../manifests/jobs/tn-assetimport-job.yaml
 
 sleep 5
 
