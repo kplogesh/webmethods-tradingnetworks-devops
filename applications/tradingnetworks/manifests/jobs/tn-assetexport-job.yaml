@@ -40,8 +40,6 @@ spec:
       periodSeconds: 20
       successThreshold: 1                 
     volumeMounts:
-      - mountPath: /tmp
-        name: export-script
       - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
         subPath: licenseKey.xml
         name: licensekey
