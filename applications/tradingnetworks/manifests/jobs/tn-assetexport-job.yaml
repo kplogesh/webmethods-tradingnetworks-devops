@@ -37,7 +37,7 @@ spec:
           # Wait for MSR to come up
           while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
             sleep 2;
-            tail -20f /opt/softwareag/IntegrationServer/logs/server.log
+            tail -20 /opt/softwareag/IntegrationServer/logs/server.log
           done     
 
           # When MSR is inactive, initiate the import process
