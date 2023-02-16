@@ -4,7 +4,7 @@ content=$(base64 --wrap=0 /applications/tradingnetworks/sourcecode/tn-assets/Exp
 message="Commit from Jenkins task"
 committer_name="Jenkins"
 committer_email="jenkins@jenkins.com"
-auth="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"
+auth="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"
 branch=$2
 # Form the JSON String payload for Github push
 JSON_STRING="{
