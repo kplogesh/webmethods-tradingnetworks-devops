@@ -1,7 +1,7 @@
 <ImportOptions>
         <option name="importDataFileName">ExportedData-<TAG>.bin</option>
         <option name="importType">bin</option>
-        <option name="all">false</option>
+        <option name="all">true</option>
         <option name="force">true</option>
         <option name="replaceRuleList">false</option>
         <option name="dbop">true</option>
