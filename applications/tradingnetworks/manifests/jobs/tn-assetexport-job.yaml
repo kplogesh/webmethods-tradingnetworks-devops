@@ -19,6 +19,7 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
+          chmod 777 /tmp
           cd /tmp
           cp /tmp/* /scripts/
           cd /scripts
