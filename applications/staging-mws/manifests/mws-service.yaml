@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: staging-mws
+  labels:
+    app: staging-mws
+  annotations:
+    prometheus.io/scrape: 'true'    
+    prometheus.io/port: '8585'
+spec:
+  selector:
+    app: staging-mws
+    component: staging-mws
+  ports:
+    - port: 8585
+      name: http-server
+      targetPort: 8585
+      nodePort: 30311
+  type: NodePort
+  sessionAffinity: ClientIP
