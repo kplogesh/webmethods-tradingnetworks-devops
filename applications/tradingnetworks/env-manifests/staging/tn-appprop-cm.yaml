@@ -33,10 +33,10 @@ data:
     truststore.DEFAULT_IS_TRUSTSTORE.ksLocation=../common/conf/platform_truststore.jks
     truststore.DEFAULT_IS_TRUSTSTORE.ksPassword=manage
     user.Administrator.password=manage
-    jdbc.mssqlforwm.dbURL=jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=stgwebm1015
+    jdbc.mssqlforwm.dbURL=jdbc:wm:sqlserver://mssql-deployment.insurance:1433;databaseName=stgwebm1015
     jdbc.mssqlforwm.userid=sa
     jdbc.mssqlforwm.password=MyC0m9l&xP@ssw0rd
-    jdbc.mssqlforcentral.dbURL=jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=stgmws1015db
+    jdbc.mssqlforcentral.dbURL=jdbc:wm:sqlserver://mssql-deployment.insurance:1433;databaseName=stgmws1015db
     jdbc.mssqlforcentral.userid=sa
     jdbc.mssqlforcentral.password=MyC0m9l&xP@ssw0rd    
     jdbcfunc.ISInternal.connPoolAlias=mssqlforwm
