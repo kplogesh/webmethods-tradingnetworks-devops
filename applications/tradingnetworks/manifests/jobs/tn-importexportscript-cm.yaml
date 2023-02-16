@@ -13,8 +13,6 @@ data:
       sleep 2;
     done     
 
-    # When startup is complete, initiate the shutdown sequence
-    /opt/softwareag/IntegrationServer/bin/shutdown.sh 
 
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
@@ -23,6 +21,9 @@ data:
     echo "Starting export--------------------"
     ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all
     echo "Completing export------------------"
+
+    # When startup is complete, initiate the shutdown sequence
+    /opt/softwareag/IntegrationServer/bin/shutdown.sh 
 
     # Push to Repository
     # use base64 to encode binary data and -w0 all in one-line stream
