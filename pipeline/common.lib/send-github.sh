@@ -20,5 +20,6 @@ curl \
     -H "Accept: application/vnd.github+json" \
     -H "Content-Type: application/json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
+    -H "Authorization: Bearer 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" \
     --url https://api.github.com/repos/kplogesh/webmethods-tradingnetworks-devops/contents/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip \
     --data-binary @-
