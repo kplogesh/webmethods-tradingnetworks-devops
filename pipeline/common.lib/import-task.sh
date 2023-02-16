@@ -3,8 +3,8 @@
 kubectl config set-context --current --namespace=$3
 
 # Create the configmap with the exported data from source trading networks
-cd /applications/tradingnetworks/sourcecode/tn-assets
-kubectl create configmap tn-dataload-cm --from-file=ExportedData-$1.zip --from-file=consolidated/TNImport.xml
+cd applications/tradingnetworks/sourcecode/tn-assets
+kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
 
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
 cd ../..//manifests/jobs
