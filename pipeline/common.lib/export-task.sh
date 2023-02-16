@@ -17,7 +17,6 @@ kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwarea
 kubectl delete po pod-asset-export-tradingnetworks-r-$1
 if [ -f "ExportedData-$1.zip" ]; then
     echo "ExportedData-$1.zip exists."
-    kubectl delete po pod-asset-export-tradingnetworks-r-$1
     ../../../../pipeline/common.lib/send-github.sh $1 $3
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
