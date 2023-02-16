@@ -20,6 +20,8 @@ if [ -f "ExportedData-$1.zip" ]; then
 #    ../../../../pipeline/common.lib/send-github.sh $1 $3
     git add ExportedData-$1.zip
     git commit -m "committing exported tn data"
+    git config user.name "Jenkins"
+    git config user.email "Jenkins@jenkins.com"
     git push origin develop
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
