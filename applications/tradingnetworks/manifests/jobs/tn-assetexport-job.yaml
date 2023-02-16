@@ -31,13 +31,8 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
-          cp /tmp/* /scripts/
-          cd /scripts
-          chmod 755 export.sh
-          ./export.sh
+          /tmp/export.sh
         volumeMounts:
-          - mountPath: /scripts
-            name: create-dir
           - mountPath: /tmp
             name: export-script
           - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
@@ -56,8 +51,7 @@ spec:
         - name: export-script
           configMap:
             name: tn-importexportscript-cm
-        - name: create-dir
-          emptyDir: {}
+            defaultMode: 0777
         - name: licensekey
           configMap:
             name: webmethodslicensekeys
