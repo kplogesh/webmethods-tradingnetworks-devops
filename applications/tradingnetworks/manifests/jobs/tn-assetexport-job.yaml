@@ -12,6 +12,8 @@ spec:
       containers:
       - name: asset-import-tradingnetworks
         image: wm.msr.tn:10.15
+        securityContext:
+          allowPrivilegeEscalation: true
         command: 
         - "sh"
         - "-c"
