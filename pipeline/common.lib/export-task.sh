@@ -12,8 +12,8 @@ kubectl describe pod pod-asset-export-tradingnetworks-r-$1
 
 kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-r-$1
 
-filename=/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip
-kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > $filename
+filename=applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip
+kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > applications/tradingnetworks/sourcecode/tn-assets/ExportedData-$1.zip
 
 if [ -f "$filename" ]; then
     echo "$filename exists."
