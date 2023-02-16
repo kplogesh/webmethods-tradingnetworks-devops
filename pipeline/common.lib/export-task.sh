@@ -22,7 +22,8 @@ if [ -f "ExportedData-$1.zip" ]; then
     git config user.email "Jenkins@jenkins.com"
     git add ExportedData-$1.zip
     git commit -m "committing exported tn data"
-    git push origin develop
+    git show-ref
+    git push origin HEAD:develop
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
     exit 1
