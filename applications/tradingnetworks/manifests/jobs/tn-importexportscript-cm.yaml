@@ -17,7 +17,6 @@ data:
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
-    sleep 300
     echo "Starting export--------------------"
     ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all
     echo "Completing export------------------"
