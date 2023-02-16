@@ -8,7 +8,6 @@ pipeline {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'kubectl config set-context --current --namespace=development'
                     sh 'pipeline/common.lib/export-task.sh ${BUILD_NUMBER} development'
                 }
             }
