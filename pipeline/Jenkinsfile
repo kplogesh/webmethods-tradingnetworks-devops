@@ -17,7 +17,7 @@ pipeline {
             steps 
             {
                 sh 'unzip ExportedData-${BUILD_NUMBER}.zip'
-                withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
+                withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} staging staging'
                 }
@@ -33,7 +33,7 @@ pipeline {
         stage('Staging - Deploy MSR - K8S') { 
             steps 
             {
-                withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
+                withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/deploy.sh ${BUILD_NUMBER} staging staging'
                 }

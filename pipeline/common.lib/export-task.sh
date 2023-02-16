@@ -1,7 +1,4 @@
 #!/bin/bash
-# Set the context to desired namespace
-kubectl config set-context --current --namespace=development
-
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
 cd applications/tradingnetworks/manifests/jobs
 sed -i "s/<TAG>/$1/" tn-assetexport-job.yaml
