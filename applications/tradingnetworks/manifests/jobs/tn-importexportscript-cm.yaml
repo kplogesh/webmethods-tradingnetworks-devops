@@ -69,6 +69,5 @@ data:
     # Download from Repository
     curl -LJO "https://raw.githubusercontent.com/kplogesh/webmethods-tradingnetworks-devops/develop/applications/tradingnetworks/sourcecode/tn-assets/ExportedData-<TAG>.bin" > ExportedData-<TAG>.bin 
     
-    sleep 300
     # Execute the TN import command to effect the new assets
     ./tnimport.sh -file TNImport.xml
