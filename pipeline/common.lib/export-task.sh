@@ -12,4 +12,6 @@ kubectl describe pod pod-asset-export-tradingnetworks-r-$1
 
 kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-r-$1
 
+kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin | ./tnexport.sh -bin ExportedData-$1 -all | cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > ExportedData-$1.zip
 echo "completed waiting"
+ls -ltr
