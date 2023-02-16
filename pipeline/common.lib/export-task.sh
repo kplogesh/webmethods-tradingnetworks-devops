@@ -18,6 +18,9 @@ kubectl delete po pod-asset-export-tradingnetworks-r-$1
 if [ -f "ExportedData-$1.zip" ]; then
     echo "ExportedData-$1.zip exists."
 #    ../../../../pipeline/common.lib/send-github.sh $1 $3
+    git add ExportedData-$1.zip
+    git commit -m "committing exported tn data"
+    git push origin develop
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
     exit 1
