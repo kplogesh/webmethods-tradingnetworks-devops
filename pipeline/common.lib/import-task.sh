@@ -1,4 +1,5 @@
 #!/bin/bash
+kubectl config set-context --current --namespace=$2
 # Create the configmap with the exported data from source trading networks
 cd applications/tradingnetworks/sourcecode/tn-assets
 
@@ -20,4 +21,4 @@ kubectl logs -f job/job-asset-import-tradingnetworks-r-$1
 
 # Delete the configmap containing the exported data from source trading networks
 kubectl delete cm tn-dataload-cm
-kubectl delete job job/job-asset-import-tradingnetworks-r-$1
+kubectl delete job job-asset-import-tradingnetworks-r-$1

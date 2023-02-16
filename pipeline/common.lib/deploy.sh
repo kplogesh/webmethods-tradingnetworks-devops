@@ -1,5 +1,5 @@
 #!/bin/bash
-
+kubectl config set-context --current --namespace=$3
 # Deploy the environment specific configurations
 cd applications/tradingnetworks/env-manifests/$2
 kubectl apply -f .
