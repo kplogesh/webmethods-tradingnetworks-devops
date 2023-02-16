@@ -16,10 +16,10 @@ pipeline {
         { 
             steps 
             {
+                sh 'content=$(base64 --wrap=0 /applications/tradingnetworks/sourcecode/tn-assets/ExportedData-${BUILD_NUMBER}.zip)'
                 sh '''
                     # Push to Repository
-                    # use base64 to encode binary data and -w0 all in one-line stream
-                    content=$(base64 --wrap=0 /applications/tradingnetworks/sourcecode/tn-assets/ExportedData-${BUILD_NUMBER}.zip)
+                    # use base64 to encode binary data and -w0 all in one-line stream                   
                     message="Commit from Jenkins task"
                     committer_name="Jenkins"
                     committer_email="jenkins@jenkins.com"
