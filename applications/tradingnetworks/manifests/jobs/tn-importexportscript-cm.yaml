@@ -6,13 +6,13 @@ data:
   export.sh: |-
     #!/bin/bash
     # Initiate the startup for MSR to effect the JDBC pools
-    /opt/softwareag/IntegrationServer/bin/startup.sh
+    /opt/softwareag/IntegrationServer/bin/startContainer.sh &
 
     # Wait for MSR to come up
     while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
       sleep 2;
     done     
-
+    sleep 200
     # When MSR is inactive, initiate the import process
     cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
     # Execute the TN export command to effect the new assets
