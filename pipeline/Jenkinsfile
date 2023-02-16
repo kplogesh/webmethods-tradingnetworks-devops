@@ -16,7 +16,6 @@ pipeline {
         { 
             steps 
             {
-                sh 'unzip ExportedData-${BUILD_NUMBER}.zip'
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} staging staging'
