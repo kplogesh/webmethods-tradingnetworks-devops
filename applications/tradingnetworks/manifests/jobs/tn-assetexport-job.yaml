@@ -19,7 +19,6 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
-          mkdir /scripts
           cd /scripts
           nohup ./export.sh & fg
           tail -f nohup.out
