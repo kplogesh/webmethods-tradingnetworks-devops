@@ -9,7 +9,7 @@ spec:
         sidecar.istio.io/inject: "false" 
     spec:
       securityContext:
-        runAsUser: 0 
+        runAsUser: 1724
       restartPolicy: Never
       containers:
       - name: asset-export-tradingnetworks
@@ -19,8 +19,6 @@ spec:
         - "-c"
         - |
           mkdir -p /opt/softwareag/install/bin
-          chmod 777 /tmp
-          cd /tmp
           cp /tmp/* /scripts/
           cd /scripts
           chmod 755 export.sh
