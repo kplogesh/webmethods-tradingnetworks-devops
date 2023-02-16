@@ -18,7 +18,7 @@ kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwarea
 if [ -f "$filename" ]; then
     echo "$filename exists."
     kubectl delete po pod-asset-export-tradingnetworks-r-$1
-    pipeline/common.lib/send-github.sh $1 $2
+    pipeline/common.lib/send-github.sh $1 $3
 else 
     echo "$filename does not exist. Please verify the logs"
     exit 1
