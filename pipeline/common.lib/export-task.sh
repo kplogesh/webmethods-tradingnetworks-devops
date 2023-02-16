@@ -12,13 +12,13 @@ kubectl describe pod pod-asset-export-tradingnetworks-r-$1
 
 kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-r-$1
 
-cd applications/tradingnetworks/sourcecode/tn-assets/
+cd ../../sourcecode/tn-assets/
 kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-$1.zip" > ExportedData-$1.zip
 kubectl delete po pod-asset-export-tradingnetworks-r-$1
 if [ -f "ExportedData-$1.zip" ]; then
     echo "ExportedData-$1.zip exists."
     kubectl delete po pod-asset-export-tradingnetworks-r-$1
-    pipeline/common.lib/send-github.sh $1 $3
+    ../../../../pipeline/common.lib/send-github.sh $1 $3
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
     exit 1
