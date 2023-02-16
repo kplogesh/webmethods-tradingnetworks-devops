@@ -13,6 +13,6 @@ sleep 5
 kubectl get pods | grep pod-asset-export-tradingnetworks-r-$1
 kubectl describe pod pod-asset-export-tradingnetworks-r-$1
 
-kubectl wait --for=condition=ready pod/pod-asset-export-tradingnetworks-r-$1
+kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-r-$1
 
 echo "completed waiting"
