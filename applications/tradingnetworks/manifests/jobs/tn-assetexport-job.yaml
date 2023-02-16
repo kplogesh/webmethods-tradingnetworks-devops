@@ -8,11 +8,11 @@ spec:
       annotations:
         sidecar.istio.io/inject: "false" 
     spec:
-      securityContext:
-        privileged: true
       restartPolicy: Never
       containers:
       - name: asset-export-tradingnetworks
+        securityContext:
+          privileged: true      
         image: wm.msr.tn:10.15
         resources:
           limits:
