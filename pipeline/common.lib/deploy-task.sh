@@ -4,9 +4,9 @@ kubectl config set-context --current --namespace=$3
 cd applications/tradingnetworks/env-manifests/$2
 kubectl apply -f .
 
-MAJOR = `sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
-MINOR = `sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
-PATCH = `sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
+MAJOR=`sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
+MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
+PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
 
 # Deploy the target manifests to create the runtimes/pods
 cd ../../manifests

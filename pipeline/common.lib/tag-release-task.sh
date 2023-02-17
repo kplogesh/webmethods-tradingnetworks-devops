@@ -1,8 +1,8 @@
 #!/bin/bash
 cd applications/tradingnetworks
-MAJOR = `sed -n 's/^MAJOR=\(.*\)/\1/p' < version.txt`
-MINOR = `sed -n 's/^MINOR=\(.*\)/\1/p' < version.txt`
-PATCH = `sed -n 's/^PATCH=\(.*\)/\1/p' < version.txt`
+MAJOR=`sed -n 's/^MAJOR=\(.*\)/\1/p' < version.txt`
+MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < version.txt`
+PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < version.txt`
 # Display the tags
 git tag
 
