@@ -1,8 +1,8 @@
 pipeline {
     agent any 
     environment {
-        git_dev_branch_name = 'origin/develop'
-        git_main_branch_name = 'origin/master'
+        git_dev_branch_name = 'develop'
+        git_main_branch_name = 'master'
         //git_pat = credentials('git-pat')
         dev_namespace= 'development'
         stg_namespace= 'staging'
