@@ -1,7 +1,7 @@
 pipeline {
     agent any 
     environment {
-        git_dev_branch_name = 'develop'
+        git_dev_branch_name = 'origin/develop'
         git_main_branch_name = 'master'
         //git_pat = credentials('git-pat')
         dev_namespace= 'development'
@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('DEV Export') { 
             when {
-                branch 'origin/develop'
+                branch '${git_dev_branch_name}'
             }             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
