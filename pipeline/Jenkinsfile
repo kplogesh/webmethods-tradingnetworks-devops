@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('DEV Export') { 
             when {
-                branch '${git_dev_branch_name}'
+                branch 'origin/develop'
             }             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
@@ -28,7 +28,7 @@ pipeline {
         }                    
         stage('STG Import') { 
             when {
-                branch '${git_dev_branch_name}' // run this stage - only if the branch name started with develop/
+                branch 'origin/develop' // run this stage - only if the branch name started with develop/
             }            
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
@@ -39,7 +39,7 @@ pipeline {
         }
         stage('Build') { 
             when {
-                branch '${git_dev_branch_name}' // run this stage - only if the branch name started with develop/
+                branch 'origin/develop' // run this stage - only if the branch name started with develop/
             }            
             steps {
                 sh 'pipeline/common.lib/build-task.sh ${BUILD_NUMBER}'
@@ -47,7 +47,7 @@ pipeline {
         }         
         stage('STG Deploy') {
             when {
-                branch '${git_dev_branch_name}' // run this stage - only if the branch name started with develop/
+                branch 'origin/develop' // run this stage - only if the branch name started with develop/
             }             
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
@@ -58,7 +58,7 @@ pipeline {
         }
         stage('PRD Import') { 
             when {
-                branch '${git_main_branch_name}' // run this stage - only if the branch name is master
+                branch 'origin/master' // run this stage - only if the branch name is master
             }            
             steps {
                 sh 'echo "hello"'
@@ -70,7 +70,7 @@ pipeline {
         }        
         stage('PRD Deploy') { 
             when {
-                branch '${git_main_branch_name}' // run this stage - only if the branch name is master
+                branch 'origin/master' // run this stage - only if the branch name is master
             }                    
             steps {
                 sh 'echo "hello"'
