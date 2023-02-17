@@ -3,53 +3,6 @@ kind: ConfigMap
 metadata:
   name: tn-importexportscript-cm
 data:
-  export.sh: |-
-    #!/bin/bash
-    # Initiate the startup for MSR to effect the JDBC pools
-    /opt/softwareag/IntegrationServer/bin/startup.sh
-
-    # Wait for MSR to come up
-    while [ $(curl -sw '%{http_code}' "http://localhost:5555/health/liveness" -o /dev/null) -ne 200 ]; do
-      sleep 2;
-      tail -20 /opt/softwareag/IntegrationServer/logs/server.log
-    done     
-
-    # When MSR is inactive, initiate the import process
-    cd /opt/softwareag/IntegrationServer/packages/WmTN/bin    
-    # Execute the TN export command to effect the new assets
-    echo "Starting export--------------------"
-    nohup ./tnexport.sh -bin ExportedData<TAG> -zipdir /scripts -all & fg
-    tail -f nohup.out
-    echo "Completing export------------------"
-
-    # When startup is complete, initiate the shutdown sequence
-    /opt/softwareag/IntegrationServer/bin/shutdown.sh 
-
-    # Push to Repository
-    # use base64 to encode binary data and -w0 all in one-line stream
-    content=$(base64 --wrap=0 /scripts/ExportedData<TAG>.zip)
-    message="Commit from Jenkins task"
-    committer_name="Jenkins"
-    committer_email="jenkins@jenkins.com"
-    branch="develop"
-
-    JSON_STRING="{
-    \"message\":\"${message}\",
-    \"committer\":{\"name\":\"${committer_name}\",\"email\":\"${committer_email}\"},
-    \"content\":\"${content}\",
-    \"branch\":\"${branch}\"
-    }"
-
-    echo ${JSON_STRING} |
-    curl \
-      -X PUT \
-      -H "Accept: application/vnd.github+json" \
-      -H "Content-Type: application/json" \
-      -H "X-GitHub-Api-Version: 2022-11-28" \
-      -H "Authorization: Bearer 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" \
-      --url https://api.github.com/repos/kplogesh/webmethods-tradingnetworks-devops/contents/applications/tradingnetworks/sourcecode/tn-assets/ExportedData<TAG>.zip \
-      --data-binary @-
-
   import.sh: |-
     #!/bin/bash
     # Initiate the startup for MSR to effect the JDBC pools
