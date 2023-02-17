@@ -16,7 +16,7 @@ pipeline {
         stage('DEV Export') { 
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh 'echo ${BRANCH_NAME}'
+                sh 'echo ${BRANCH_NAME} - ${GIT_BRANCH}'
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/export-task.sh ${BUILD_NUMBER} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
