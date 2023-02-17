@@ -49,5 +49,10 @@ pipeline {
                 sh 'pipeline/common.lib/tag-release-task.sh ${BUILD_NUMBER}'
             }
         }                              
-    }   
+    }
+    post { 
+        always { 
+            cleanWs()
+        }
+    }       
 }

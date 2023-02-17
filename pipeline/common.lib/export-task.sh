@@ -40,7 +40,7 @@ if [ -f "ExportedData-${VERSION}.zip" ]; then
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
     git config user.name "Jenkins"
     git config user.email "Jenkins@jenkins.com"
-    git add ExportedData-${VERSION}.bin -y
+    git add ExportedData-${VERSION}.bin
     git commit -m "committing exported tn data"
     git push origin HEAD:$4
 else 
