@@ -30,7 +30,7 @@ kubectl logs pod-asset-export-tradingnetworks-${VERSION}
 
 # Execute the export script within the intermediate pod created using the exec command
 cd ../../sourcecode/tn-assets/
-kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-$1 -all;cat /opt/softwareag/IntegrationServer/ExportedData-${VERSION}.zip" > ExportedData-${VERSION}zip
+kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-${VERSION} -all;cat /opt/softwareag/IntegrationServer/ExportedData-${VERSION}.zip" > ExportedData-${VERSION}zip
 
 # Delete the pod as at this stage, the export job would have got completed
 kubectl delete po pod-asset-export-tradingnetworks-${VERSION}
