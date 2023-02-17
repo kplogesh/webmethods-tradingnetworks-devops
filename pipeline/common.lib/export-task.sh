@@ -7,6 +7,8 @@ sed -i "s/<TAG>/$1/" tn-importexportscript-cm.yaml
 kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../tn-utilfiles-cm.yaml -f tn-importexportscript-cm.yaml -f tn-assetexport-job.yaml
 sleep 5
 
+echo "Describing the configurations"
+kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
 # List the k8s jobs that has been created
 kubectl get pods | grep pod-asset-export-tradingnetworks-r-$1
 kubectl describe pod pod-asset-export-tradingnetworks-r-$1

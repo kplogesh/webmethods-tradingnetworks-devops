@@ -8,3 +8,6 @@ kubectl apply -f .
 cd ../../manifests
 sed -i "s/<TAG>/$1/" tn-spec-deployment.yaml
 kubectl apply -f .
+
+echo "Describing the configurations"
+kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm

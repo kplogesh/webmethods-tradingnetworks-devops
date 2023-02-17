@@ -12,6 +12,8 @@ kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
 kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../manifests/tn-utilfiles-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../../manifests/jobs/tn-importexportscript-cm.yaml -f ../../manifests/jobs/tn-assetimport-job.yaml
 
 sleep 5
+echo "Describing the configurations"
+kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
 
 # List the k8s jobs that has been created
 kubectl get jobs | grep job-asset-import-tradingnetworks-r-$1
