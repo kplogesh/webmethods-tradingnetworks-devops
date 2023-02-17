@@ -59,6 +59,7 @@ pipeline {
                 branch '${git_main_branch_name}' // run this stage - only if the branch name is master
             }            
             steps {
+                sh 'echo "hello"'
                 /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
@@ -70,6 +71,7 @@ pipeline {
                 branch '${git_main_branch_name}' // run this stage - only if the branch name is master
             }                    
             steps {
+                sh 'echo "hello"'
                 /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
