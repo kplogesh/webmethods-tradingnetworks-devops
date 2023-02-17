@@ -36,7 +36,7 @@ kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/sof
 kubectl delete po pod-asset-export-tradingnetworks-${VERSION}
 if [ -f "ExportedData-${VERSION}.zip" ]; then
     echo "ExportedData-${VERSION}.zip exists."
-    unzip ExportedData-${VERSION}.zip #unzip the content to make it available for deployment tasks
+    unzip -o ExportedData-${VERSION}.zip #unzip the content to make it available for deployment tasks
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
     echo "unzipped"
     git config user.name "Jenkins"
