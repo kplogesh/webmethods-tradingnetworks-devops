@@ -11,4 +11,4 @@ kubectl apply -f .
 
 echo "Describing the configurations"
 kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
-kubectl describe deploy tn-spec-deployment.yaml
+kubectl describe deploy tradingnetworks
