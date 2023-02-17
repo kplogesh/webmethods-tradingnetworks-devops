@@ -26,7 +26,7 @@ pipeline {
         { 
             steps 
             {
-                sh 'pipeline/common.lib/build.sh ${BUILD_NUMBER}'
+                sh 'pipeline/common.lib/build-task.sh ${BUILD_NUMBER}'
             }
         }         
         stage('Staging - Deploy MSR - K8S') { 
@@ -34,7 +34,7 @@ pipeline {
             {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/deploy.sh ${BUILD_NUMBER} staging staging'
+                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} staging staging'
                 }
             }
         }    
