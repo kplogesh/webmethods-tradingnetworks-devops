@@ -15,6 +15,6 @@ spec:
     - port: 8585
       name: http-server
       targetPort: 8585
-      nodePort: 30311
+      nodePort: 30411
   type: NodePort
   sessionAffinity: ClientIP
