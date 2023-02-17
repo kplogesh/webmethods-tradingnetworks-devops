@@ -1,0 +1,27 @@
+pipeline {
+    agent any 
+    environment {
+        prd_namespace= 'production'
+        prd_env_name = 'staging'        
+    }    
+    stages {
+        stage('PRD Import') {         
+            steps {
+                sh 'echo "hello"'
+                /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                } */
+            }
+        }        
+        stage('PRD Deploy') {               
+            steps {
+                sh 'echo "hello"'
+                /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                } */
+            } 
+        }               
+    }   
+}
