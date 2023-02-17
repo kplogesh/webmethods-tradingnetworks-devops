@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('DEV Export') { 
             when {
-                branch '${git_dev_branch_name}' // run this stage - only if the branch name started with develop/
+                branch 'develop' // run this stage - only if the branch name started with develop/
             }
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
