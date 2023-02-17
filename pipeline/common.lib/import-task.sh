@@ -8,9 +8,9 @@ MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
 PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
 
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" ../../manifests/jobs/tn-assetimport-job.yaml
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" ../../manifests/jobs/tn-importexportscript-cm.yaml
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" consolidated/TNImport.xml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" ../../manifests/jobs/tn-assetimport-job.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" ../../manifests/jobs/tn-importexportscript-cm.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" consolidated/TNImport.xml
 
 
 kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml

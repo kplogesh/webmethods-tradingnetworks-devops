@@ -10,7 +10,7 @@ PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
 
 # Deploy the target manifests to create the runtimes/pods
 cd ../../manifests
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" tn-spec-deployment.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" tn-spec-deployment.yaml
 
 kubectl apply -f .
 
