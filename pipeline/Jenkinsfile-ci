@@ -1,22 +1,17 @@
 pipeline {
     agent any 
     environment {
-        git_dev_branch_name = 'origin/develop'
-        git_main_branch_name = 'master'
+        git_dev_branch_name = 'develop'
         //git_pat = credentials('git-pat')
         dev_namespace= 'development'
         stg_namespace= 'staging'
         dev_env_name = 'development'
-        stg_env_name = 'staging'
-        prd_namespace= 'production'
-        prd_env_name = 'staging'        
-        BRANCH_NAME = "${GIT_BRANCH.split("/")[1]}"
+        stg_env_name = 'staging'   
     }    
     stages {
         stage('DEV Export') {             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh 'echo ${BRANCH_NAME} - ${GIT_BRANCH}'
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/export-task.sh ${BUILD_NUMBER} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
