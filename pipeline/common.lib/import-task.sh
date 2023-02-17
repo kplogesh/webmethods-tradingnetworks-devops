@@ -6,11 +6,11 @@ cd applications/tradingnetworks/sourcecode/tn-assets
 MAJOR=`sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
 MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
 PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
-
+VERSION=v${MAJOR}.${MINOR}.${PATCH}
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" ../../manifests/jobs/tn-assetimport-job.yaml
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" ../../manifests/jobs/tn-importexportscript-cm.yaml
-sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}/" consolidated/TNImport.xml
+sed -i "s/<TAG>/${VERSION}/" ../../manifests/jobs/tn-assetimport-job.yaml
+sed -i "s/<TAG>/${VERSION}/" ../../manifests/jobs/tn-importexportscript-cm.yaml
+sed -i "s/<TAG>/${VERSION}/" consolidated/TNImport.xml
 
 
 kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
@@ -21,11 +21,11 @@ echo "Describing the configurations"
 kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
 
 # List the k8s jobs that has been created
-kubectl get jobs | grep job-asset-import-tradingnetworks-r-$1
+kubectl get jobs | grep job-asset-import-tradingnetworks-${VERSION}
 
 # Tail the logs of the job that has been created
-kubectl logs -f job/job-asset-import-tradingnetworks-r-$1
+kubectl logs -f job/job-asset-import-tradingnetworks-${VERSION}
 
 # Delete the configmap containing the exported data from source trading networks
 kubectl delete cm tn-dataload-cm
-kubectl delete job job-asset-import-tradingnetworks-r-$1
+kubectl delete job job-asset-import-tradingnetworks-${VERSION}
