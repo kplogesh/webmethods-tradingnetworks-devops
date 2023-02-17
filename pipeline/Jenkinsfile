@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage('DEV Export') { 
             when{
-                branch '${git_dev_branch_name}'
+                branch '${git_dev_branch_name}/*'
             }
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
