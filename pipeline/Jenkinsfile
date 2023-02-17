@@ -1,0 +1,80 @@
+pipeline {
+    agent any 
+    environment {
+        git_dev_branch_name = 'develop'
+        git_main_branch_name = 'master'
+        //git_pat = credentials('git-pat')
+        dev_namespace= 'development'
+        stg_namespace= 'staging'
+        dev_env_name = 'development'
+        stg_env_name = 'staging'
+        prd_namespace= 'production'
+        prd_env_name = 'staging'        
+    }    
+    stages {
+        stage('DEV Export') { 
+            when {
+                branch '${git_dev_branch_name}/*' // run this stage - only if the branch name started with develop/
+            }
+            steps {
+                sh "chmod +x -R ${env.WORKSPACE}"
+                withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/export-task.sh ${BUILD_NUMBER} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
+                }
+            }
+        }                    
+        stage('STG Import') { 
+            when {
+                branch '${git_dev_branch_name}/*' // run this stage - only if the branch name started with develop/
+            }            
+            steps {
+                withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}'
+                }
+            }
+        }
+        stage('Build') { 
+            when {
+                branch '${git_dev_branch_name}/*' // run this stage - only if the branch name started with develop/
+            }            
+            steps {
+                sh 'pipeline/common.lib/build-task.sh ${BUILD_NUMBER}'
+            }
+        }         
+        stage('STG Deploy') {
+            when {
+                branch '${git_dev_branch_name}/*' // run this stage - only if the branch name started with develop/
+            }             
+            steps {
+                withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}'
+                }
+            }
+        }
+        stage('PRD Import') { 
+            when {
+                branch '${git_main_branch_name}' // run this stage - only if the branch name is master
+            }            
+            steps {
+                /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                } */
+            }
+        }        
+        stage('PRD Deploy') { 
+            when {
+                branch '${git_main_branch_name}' // run this stage - only if the branch name is master
+            }                    
+            steps {
+                /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
+                {
+                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                } */
+            } 
+        }               
+    }   
+}
