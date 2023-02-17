@@ -38,6 +38,16 @@ pipeline {
                     sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}'
                 }
             }
-        }             
+        }
+        stage('STG Tests') {         
+            steps {
+                sh 'pipeline/common.lib/tests-task.sh'
+            }
+        }         
+        stage('Tag & Release') {         
+            steps {
+                sh 'pipeline/common.lib/tag-release-task.sh ${BUILD_NUMBER}'
+            }
+        }                              
     }   
 }
