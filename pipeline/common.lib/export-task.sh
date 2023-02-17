@@ -3,8 +3,12 @@ kubectl config set-context --current --namespace=$3
 
 cd applications/tradingnetworks/manifests/jobs
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-sed -i "s/<TAG>/$1/" tn-assetexport-job.yaml
-sed -i "s/<TAG>/$1/" tn-importexportscript-cm.yaml
+MAJOR = `sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
+MINOR = `sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
+PATCH = `sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
+
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" tn-assetexport-job.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" tn-importexportscript-cm.yaml
 
 # Apply the kubernetes specifications to create the required assets
 kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../tn-utilfiles-cm.yaml -f tn-importexportscript-cm.yaml -f tn-assetexport-job.yaml
@@ -29,17 +33,17 @@ kubectl exec pod-asset-export-tradingnetworks-r-$1 -- bash -c "cd /opt/softwarea
 
 # Delete the pod as at this stage, the export job would have got completed
 kubectl delete po pod-asset-export-tradingnetworks-r-$1
-if [ -f "ExportedData-$1.zip" ]; then
-    echo "ExportedData-$1.zip exists."
-    unzip ExportedData-$1.zip #unzip the content to make it available for deployment tasks
+if [ -f "ExportedData-v${MAJOR}.${MINOR}.${PATCH}.zip" ]; then
+    echo "ExportedData-v${MAJOR}.${MINOR}.${PATCH}zip exists."
+    unzip ExportedData-v${MAJOR}.${MINOR}.${PATCH}.zip #unzip the content to make it available for deployment tasks
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
     git config user.name "Jenkins"
     git config user.email "Jenkins@jenkins.com"
-    git add ExportedData-$1.bin
+    git add ExportedData-v${MAJOR}.${MINOR}.${PATCH}.bin
     git commit -m "committing exported tn data"
     git push origin HEAD:$4
 else 
-    echo "ExportedData-$1.zip does not exist. Please verify the logs"
+    echo "ExportedData-v${MAJOR}.${MINOR}.${PATCH}.zip does not exist. Please verify the logs"
     # If the exported zip file is not generated properly, then fail the script and verify the logs produced in above steps
     exit 1
 fi

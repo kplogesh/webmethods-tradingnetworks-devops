@@ -3,10 +3,15 @@ kubectl config set-context --current --namespace=$2
 # Create the configmap with the exported data from source trading networks
 cd applications/tradingnetworks/sourcecode/tn-assets
 
+MAJOR = `sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
+MINOR = `sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
+PATCH = `sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
+
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-assetimport-job.yaml
-sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-importexportscript-cm.yaml
-sed -i "s/<TAG>/$1/" consolidated/TNImport.xml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" ../../manifests/jobs/tn-assetimport-job.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" ../../manifests/jobs/tn-importexportscript-cm.yaml
+sed -i "s/<TAG>/v${MAJOR}.${MINOR}.${PATCH}" consolidated/TNImport.xml
+
 
 kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
 kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../manifests/tn-utilfiles-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../../manifests/jobs/tn-importexportscript-cm.yaml -f ../../manifests/jobs/tn-assetimport-job.yaml
