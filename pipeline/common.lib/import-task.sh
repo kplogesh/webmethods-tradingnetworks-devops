@@ -1,15 +1,19 @@
 #!/bin/bash
-# Set the context to desired namespace
-kubectl config set-context --current --namespace=$3
-
+kubectl config set-context --current --namespace=$2
 # Create the configmap with the exported data from source trading networks
-kubectl create configmap tn-dataload-cm --from-file=ExportedData.bin --from-file=applications/tradingnetworks/sourcecode/tn-assets/consolidated/TNImport.xml
+cd applications/tradingnetworks/sourcecode/tn-assets
 
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-cd applications/tradingnetworks/manifests/jobs
-sed -i "s/<TAG>/$1/" tn-assetimport-job.yaml
-kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../tn-utilfiles-cm.yaml -f .
+sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-assetimport-job.yaml
+sed -i "s/<TAG>/$1/" ../../manifests/jobs/tn-importexportscript-cm.yaml
+sed -i "s/<TAG>/$1/" consolidated/TNImport.xml
+
+kubectl create configmap tn-dataload-cm --from-file=consolidated/TNImport.xml
+kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../manifests/tn-utilfiles-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../../manifests/jobs/tn-importexportscript-cm.yaml -f ../../manifests/jobs/tn-assetimport-job.yaml
+
 sleep 5
+echo "Describing the configurations"
+kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
 
 # List the k8s jobs that has been created
 kubectl get jobs | grep job-asset-import-tradingnetworks-r-$1
@@ -19,3 +23,4 @@ kubectl logs -f job/job-asset-import-tradingnetworks-r-$1
 
 # Delete the configmap containing the exported data from source trading networks
 kubectl delete cm tn-dataload-cm
+kubectl delete job job-asset-import-tradingnetworks-r-$1

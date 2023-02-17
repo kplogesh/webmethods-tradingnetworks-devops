@@ -1,27 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: staging-mws
+  name: mws
 spec:
   selector:
     matchLabels:
-      app: staging-mws
+      app: mws
       version: v1.0
-      component: staging-mws
+      component: mws
   replicas: 1
   template:
     metadata:
       labels:
-        app: staging-mws
-        component: staging-mws
+        app: mws
+        component: mws
         version: v1.0
     spec:
       hostAliases:
       - ip: "127.0.0.1"
         hostnames:
-        - "staging-mws"        
+        - "mws"        
       containers:      
-        - name: staging-mws-container       
+        - name: mws-container       
           image: mws-img:10.15
           imagePullPolicy: IfNotPresent   
         # Resources required for the apigateway to function. CPUs and Memory configurations.
@@ -36,7 +36,7 @@ spec:
           - name: DB_TYPE
             value: sqlserver
           - name: DB_URL
-            value: "jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=stgmws1015db"   
+            value: "jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=prodmws1015db"   
           - name: DB_USERNAME
             value: sa
           - name: DB_PASSWORD

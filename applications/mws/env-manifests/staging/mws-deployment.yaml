@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: mws
+spec:
+  selector:
+    matchLabels:
+      app: mws
+      version: v1.0
+      component: mws
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mws
+        component: mws
+        version: v1.0
+    spec:
+      hostAliases:
+      - ip: "127.0.0.1"
+        hostnames:
+        - "mws"        
+      containers:      
+        - name: mws-container       
+          image: mws-img:10.15
+          imagePullPolicy: IfNotPresent   
+        # Resources required for the apigateway to function. CPUs and Memory configurations.
+          resources:
+            limits:
+              cpu: "1"
+              memory: "2G" 
+            requests:
+              cpu: "0.25"
+              memory: "1G"  
+          env:
+          - name: DB_TYPE
+            value: sqlserver
+          - name: DB_URL
+            value: "jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=stgmws1015db"   
+          - name: DB_USERNAME
+            value: sa
+          - name: DB_PASSWORD
+            value: MyC0m9l&xP@ssw0rd
+          - name: NODE_NAME
+            value: stagingmws
+          ports:
+            - containerPort: 8585
+        # Liveness probe to check whether container is active. Restart happens when liveness probe fails.
+          livenessProbe:
+            tcpSocket:
+              port: 8585
+            timeoutSeconds: 10
+            initialDelaySeconds: 60
+            failureThreshold: 50
+            periodSeconds: 20
+            successThreshold: 1
+        # Readiness probe to check whether pod is ready to serve the requests. Traffic will not be injected unless readiness probes passes.
+          readinessProbe:
+            tcpSocket:
+              port: 8585
+            timeoutSeconds: 10
+            initialDelaySeconds: 120
+            failureThreshold: 50
+            periodSeconds: 20
+            successThreshold: 1   
+        # Startup probe to check whether pod is started to serve the requests.
+          startupProbe:
+            tcpSocket:
+              port: 8585
+            failureThreshold: 100
+            periodSeconds: 20                               
+      imagePullSecrets:
+        - name: regcred
+        - name: sagregcred                

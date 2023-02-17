@@ -1,66 +1,70 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: v1
+kind: Pod
 metadata:
-  name: job-asset-export-tradingnetworks-r-<TAG>
+  name: pod-asset-export-tradingnetworks-r-<TAG>
+  annotations:
+    sidecar.istio.io/inject: "false"   
 spec:
-  template:
-    metadata:
-      annotations:
-        sidecar.istio.io/inject: "false" 
-    spec:
-      securityContext:
-        runAsUser: 1724
-      restartPolicy: Never
-      containers:
-      - name: asset-export-tradingnetworks
-        image: wm.msr.tn:10.15
-        resources:
-          limits:
-            cpu: "1"
-            memory: "2G" 
-          requests:
-            cpu: "0.25"
-            memory: "1G"  
-        env:
-        - name: JAVA_MIN_MEM
-          value: "1024M"
-        - name: JAVA_MAX_MEM
-          value: "2048M"            
-        command: 
-        - "sh"
-        - "-c"
-        - |
-          mkdir -p /opt/softwareag/install/bin
-          /tmp/export.sh
-        volumeMounts:
-          - mountPath: /tmp
-            name: export-script
-          - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
-            subPath: licenseKey.xml
-            name: licensekey
-          - name: application-properties
-            mountPath: /opt/softwareag/IntegrationServer/application.properties
-            subPath: application.properties   
-          - name: setenv-cp  
-            mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/setcp.sh
-            subPath: setcp.sh        
-          - name: setenv   
-            mountPath: /opt/softwareag/install/bin/setenv.sh
-            subPath: setenv.sh                                          
-      volumes:
-        - name: export-script
-          configMap:
-            name: tn-importexportscript-cm
-            defaultMode: 0777
-        - name: licensekey
-          configMap:
-            name: webmethodslicensekeys
-        - name: application-properties
-          configMap:
-            name: tn-appprop-cm 
-        - name: setenv-cp
-          configMap:
-            name: tn-utilfiles-cm    
-        - name: setenv
-          configMap:
-            name: tn-utilfiles-cm                            
+  restartPolicy: Never
+  containers:
+  - name: asset-export-tradingnetworks 
+    image: wm.msr.tn:10.15
+    resources:
+      limits:
+        cpu: "1"
+        memory: "2G" 
+      requests:
+        cpu: "0.25"
+        memory: "1G"  
+    env:
+    - name: JAVA_MIN_MEM
+      value: "1024M"
+    - name: JAVA_MAX_MEM
+      value: "2048M"    
+  # Liveness probe to check whether container is active. Restart happens when liveness probe fails.
+    livenessProbe:
+      tcpSocket:
+        port: 5555
+      timeoutSeconds: 5
+      initialDelaySeconds: 60
+      failureThreshold: 5
+      periodSeconds: 20
+      successThreshold: 1
+  # Readiness probe to check whether pod is ready to serve the requests. Traffic will not be injected unless readiness probes passes.
+    readinessProbe:
+      tcpSocket:
+        port: 5555
+      timeoutSeconds: 5
+      initialDelaySeconds: 60
+      failureThreshold: 5
+      periodSeconds: 20
+      successThreshold: 1                 
+    volumeMounts:
+      - mountPath: /opt/softwareag/IntegrationServer/bin/../config/licenseKey.xml
+        subPath: licenseKey.xml
+        name: licensekey
+      - name: application-properties
+        mountPath: /opt/softwareag/IntegrationServer/application.properties
+        subPath: application.properties   
+      - name: setenv-cp  
+        mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/setcp.sh
+        subPath: setcp.sh        
+      - name: setenv   
+        mountPath: /opt/softwareag/install/bin/setenv.sh
+        subPath: setenv.sh                                          
+  volumes:
+    - name: export-script
+      configMap:
+        name: tn-importexportscript-cm     
+    - name: licensekey
+      configMap:
+        name: webmethodslicensekeys
+    - name: application-properties
+      configMap:
+        name: tn-appprop-cm 
+    - name: setenv-cp
+      configMap:
+        name: tn-utilfiles-cm    
+    - name: setenv
+      configMap:
+        name: tn-utilfiles-cm                            

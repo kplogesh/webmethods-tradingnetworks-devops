@@ -39,9 +39,6 @@ spec:
           - name: setenv   
             mountPath: /opt/softwareag/install/bin/setenv.sh
             subPath: setenv.sh       
-          - name: tn-data-load   
-            mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/ExportedData.bin
-            subPath: ExportedData.bin
           - name: tn-data-load-config 
             mountPath: /opt/softwareag/IntegrationServer/packages/WmTN/bin/TNImport.xml
             subPath: TNImport.xml                                     
@@ -63,9 +60,6 @@ spec:
         - name: setenv
           configMap:
             name: tn-utilfiles-cm
-        - name: tn-data-load  
-          configMap:
-            name: tn-dataload-cm     
         - name: tn-data-load-config
           configMap:
             name: tn-dataload-cm                                 

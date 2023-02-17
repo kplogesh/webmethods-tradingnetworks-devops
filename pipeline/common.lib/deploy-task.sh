@@ -1,7 +1,5 @@
 #!/bin/bash
-# Set the context to desired namespace
 kubectl config set-context --current --namespace=$3
-
 # Deploy the environment specific configurations
 cd applications/tradingnetworks/env-manifests/$2
 kubectl apply -f .
@@ -10,3 +8,7 @@ kubectl apply -f .
 cd ../../manifests
 sed -i "s/<TAG>/$1/" tn-spec-deployment.yaml
 kubectl apply -f .
+
+echo "Describing the configurations"
+kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
+kubectl describe deploy tradingnetworks
