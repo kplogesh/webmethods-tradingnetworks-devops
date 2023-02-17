@@ -38,12 +38,9 @@ if [ -f "ExportedData-${VERSION}.zip" ]; then
     echo "ExportedData-${VERSION}.zip exists."
     unzip -o ExportedData-${VERSION}.zip #unzip the content to make it available for deployment tasks
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
-    echo "unzipped"
     git config user.name "Jenkins"
     git config user.email "Jenkins@jenkins.com"
-    echo "config set"
     git add ExportedData-${VERSION}.bin
-    echo "File added"
     git commit -m "committing exported tn data"
     git push origin HEAD:$4
 else 
