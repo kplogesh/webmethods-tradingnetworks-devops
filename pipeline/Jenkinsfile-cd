@@ -5,7 +5,7 @@ pipeline {
         prd_env_name = 'staging'        
     }    
     stages {
-        stage('PRD Import') {         
+        stage('PRD DB Import') {         
             steps {
                 sh 'echo "hello"'
                 /* withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 

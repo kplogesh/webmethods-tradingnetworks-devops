@@ -9,7 +9,7 @@ pipeline {
         stg_env_name = 'staging'   
     }    
     stages {
-        stage('DEV Export') {             
+        stage('DEV DB Export') {             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
@@ -18,7 +18,7 @@ pipeline {
                 }
             }
         }                    
-        stage('STG Import') {          
+        stage('STG DB Import') {          
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
