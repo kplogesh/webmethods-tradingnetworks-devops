@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('PRD DB Import') {         
             steps {
-                sh 'echo "hello"'
+                sh "chmod +x -R ${env.WORKSPACE}"
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
@@ -16,7 +16,6 @@ pipeline {
         }        
         stage('PRD Deploy') {               
             steps {
-                sh 'echo "hello"'
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
                     sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
