@@ -1,5 +1,5 @@
 #!/bin/bash
-kubectl config set-context --current --namespace=$2
+kubectl config set-context --current --namespace=$3
 # Create the configmap with the exported data from source trading networks
 cd applications/tradingnetworks/sourcecode/tn-assets
 
