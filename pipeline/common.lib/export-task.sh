@@ -1,5 +1,5 @@
 #!/bin/bash
-kubectl config set-context --current --namespace=$2
+kubectl config set-context --current --namespace=$3
 
 cd applications/tradingnetworks/manifests/jobs
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
@@ -37,7 +37,7 @@ if [ -f "ExportedData-$1.zip" ]; then
     git config user.email "Jenkins@jenkins.com"
     git add ExportedData-$1.bin
     git commit -m "committing exported tn data"
-    git push origin HEAD:develop
+    git push origin HEAD:$4
 else 
     echo "ExportedData-$1.zip does not exist. Please verify the logs"
     # If the exported zip file is not generated properly, then fail the script and verify the logs produced in above steps
