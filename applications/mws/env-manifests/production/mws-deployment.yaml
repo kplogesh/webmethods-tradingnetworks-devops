@@ -36,7 +36,7 @@ spec:
           - name: DB_TYPE
             value: sqlserver
           - name: DB_URL
-            value: "jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=stgmws1015db"   
+            value: "jdbc:wm:sqlserver://mssql-deployment:1433;databaseName=prodmws1015db"   
           - name: DB_USERNAME
             value: sa
           - name: DB_PASSWORD
