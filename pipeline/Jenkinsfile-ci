@@ -15,10 +15,9 @@ pipeline {
         stage('DEV DB Export') {             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh "echo major version is ${VERSION}"
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/export-task.sh ${env.VERSION} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
+                    sh "pipeline/common.lib/export-task.sh ${VERSION} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}"
                 }
             }
         }                    
@@ -26,31 +25,31 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/import-task.sh ${VERSION} ${stg_env_name} ${stg_namespace}'
+                    sh "pipeline/common.lib/import-task.sh ${VERSION} ${stg_env_name} ${stg_namespace}"
                 }
             }
         }
         stage('Build') {         
             steps {
-                sh 'pipeline/common.lib/build-task.sh ${VERSION}'
+                sh "pipeline/common.lib/build-task.sh ${VERSION}"
             }
         }         
         stage('STG Deploy') {         
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}'
+                    sh "pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}"
                 }
             }
         }
         stage('STG Tests') {         
             steps {
-                sh 'pipeline/common.lib/tests-task.sh'
+                sh "pipeline/common.lib/tests-task.sh"
             }
         }         
         stage('Tag & Release') {         
             steps {
-                sh 'pipeline/common.lib/tag-release-task.sh ${VERSION}'
+                sh "pipeline/common.lib/tag-release-task.sh ${VERSION}"
             }
         }                              
     }
