@@ -30,7 +30,7 @@ if [ -f "ExportedData.zip" ]; then
     echo "ExportedData.zip exists."
     unzip -o ExportedData.zip #unzip the content to make it available for deployment tasks
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
-    ../../../../pipeline/common.lib/utils/git-action-push.sh
+    ../../../../pipeline/common.lib/utils/git-action-push.sh $4
 else 
     echo "ExportedData.zip does not exist. Please verify the logs"
     # If the exported zip file is not generated properly, then fail the script and verify the logs produced in above steps
