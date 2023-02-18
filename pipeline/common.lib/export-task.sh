@@ -25,21 +25,21 @@ kubectl logs pod-asset-export-tradingnetworks-${VERSION}
 
 # Execute the export script within the intermediate pod created using the exec command
 cd ../../sourcecode/tn-assets/
-kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData-${VERSION} -all;cat /opt/softwareag/IntegrationServer/ExportedData-${VERSION}.zip" > ExportedData-${VERSION}.zip
+kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/softwareag/IntegrationServer/packages/WmTN/bin;./tnexport.sh -bin ExportedData -all;cat /opt/softwareag/IntegrationServer/ExportedData.zip" > ExportedData.zip
 
 # Delete the pod as at this stage, the export job would have got completed
 kubectl delete po pod-asset-export-tradingnetworks-${VERSION}
-if [ -f "ExportedData-${VERSION}.zip" ]; then
-    echo "ExportedData-${VERSION}.zip exists."
-    unzip -o ExportedData-${VERSION}.zip #unzip the content to make it available for deployment tasks
+if [ -f "ExportedData.zip" ]; then
+    echo "ExportedData.zip exists."
+    unzip -o ExportedData.zip #unzip the content to make it available for deployment tasks
     # Push it to repository for tagging and release. The exported data pushed to repository will be used for testing in staging environment
     git config user.name "Jenkins"
     git config user.email "Jenkins@jenkins.com"
-    git add ExportedData-${VERSION}.bin
+    git add ExportedData.bin
     git commit -m "committing exported tn data"
     git push origin HEAD:$4
 else 
-    echo "ExportedData-${VERSION}.zip does not exist. Please verify the logs"
+    echo "ExportedData.zip does not exist. Please verify the logs"
     # If the exported zip file is not generated properly, then fail the script and verify the logs produced in above steps
     exit 1
 fi

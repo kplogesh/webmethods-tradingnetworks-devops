@@ -1,5 +1,5 @@
 <ImportOptions>
-        <option name="importDataFileName">ExportedData-<TAG>.bin</option>
+        <option name="importDataFileName">ExportedData.bin</option>
         <option name="importType">bin</option>
         <option name="all">true</option>
         <option name="force">true</option>

@@ -15,7 +15,7 @@ pipeline {
                 sh "echo major version is ${MAJOR}"
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/import-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}'
+                    sh "pipeline/common.lib/import-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}"
                 }
             }
         }        
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/deploy-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}'
+                    sh "pipeline/common.lib/deploy-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}"
                 }
             } 
         }               
