@@ -2,11 +2,7 @@
 kubectl config set-context --current --namespace=$3
 # Create the configmap with the exported data from source trading networks
 cd applications/tradingnetworks/sourcecode/tn-assets
-
-MAJOR=`sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
-MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
-PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
-VERSION=v${MAJOR}.${MINOR}.${PATCH}
+VERSION=$1
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
 sed -i "s/<TAG>/${VERSION}/g" ../../manifests/jobs/tn-assetimport-job.yaml
 sed -i "s/<TAG>/${VERSION}/g" ../../manifests/jobs/tn-importexportscript-cm.yaml

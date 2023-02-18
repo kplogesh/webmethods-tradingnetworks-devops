@@ -2,19 +2,24 @@ pipeline {
     agent any 
     environment {
         git_dev_branch_name = 'develop'
-        //git_pat = credentials('git-pat')
         dev_namespace= 'development'
         stg_namespace= 'staging'
         dev_env_name = 'development'
         stg_env_name = 'staging'   
+        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        MINOR = sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        PATCH = sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        VERSION = 'v${MAJOR}.${MINOR}.${PATCH}'
+
     }    
     stages {
         stage('DEV DB Export') {             
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
+                sh "echo major version is ${VERSION}"
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/export-task.sh ${BUILD_NUMBER} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
+                    sh 'pipeline/common.lib/export-task.sh ${VERSION} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
                 }
             }
         }                    
@@ -22,13 +27,13 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-staging', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${stg_env_name} ${stg_namespace}'
+                    sh 'pipeline/common.lib/import-task.sh ${VERSION} ${stg_env_name} ${stg_namespace}'
                 }
             }
         }
         stage('Build') {         
             steps {
-                sh 'pipeline/common.lib/build-task.sh ${BUILD_NUMBER}'
+                sh 'pipeline/common.lib/build-task.sh ${VERSION}'
             }
         }         
         stage('STG Deploy') {         
@@ -46,7 +51,7 @@ pipeline {
         }         
         stage('Tag & Release') {         
             steps {
-                sh 'pipeline/common.lib/tag-release-task.sh ${BUILD_NUMBER}'
+                sh 'pipeline/common.lib/tag-release-task.sh ${VERSION}'
             }
         }                              
     }

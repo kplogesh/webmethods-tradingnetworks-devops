@@ -2,15 +2,20 @@ pipeline {
     agent any 
     environment {
         prd_namespace= 'production'
-        prd_env_name = 'production'        
+        prd_env_name = 'production'  
+        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        MINOR = sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        PATCH = sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        VERSION = 'v${MAJOR}.${MINOR}.${PATCH}'    
     }    
     stages {
         stage('PRD DB Import') {         
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
+                sh "echo major version is ${MAJOR}"
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/import-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                    sh 'pipeline/common.lib/import-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}'
                 }
             }
         }        
@@ -18,7 +23,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/deploy-task.sh ${BUILD_NUMBER} ${prd_env_name} ${prd_namespace}'
+                    sh 'pipeline/common.lib/deploy-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}'
                 }
             } 
         }               
