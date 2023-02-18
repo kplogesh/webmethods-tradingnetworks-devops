@@ -3,11 +3,7 @@ kubectl config set-context --current --namespace=$3
 
 cd applications/tradingnetworks/manifests/jobs
 # Modify the k8s job name with release iteration and apply the k8s job specifications 
-MAJOR=`sed -n 's/^MAJOR=\(.*\)/\1/p' < ../../version.txt`
-MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
-PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
-VERSION=v${MAJOR}.${MINOR}.${PATCH}
-
+VERSION=$1
 sed -i "s/<TAG>/${VERSION}/g" tn-assetexport-job.yaml
 sed -i "s/<TAG>/${VERSION}/g" tn-importexportscript-cm.yaml
 
