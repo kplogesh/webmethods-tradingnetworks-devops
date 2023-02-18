@@ -10,9 +10,9 @@ data:
 
     <Component Id="SalesInfo">
 
-    <SerialNumber>0000497988</SerialNumber>
+    <SerialNumber>0000497888</SerialNumber>
 
-    <LicenseKey>ECB364CB483BCB3C66A7D43E4ACF4E62</LicenseKey>
+    <LicenseKey>68D56FFE95C8E4FEA38EFAEB2AEC97CE</LicenseKey>
 
     <CustomerID>3150000</CustomerID>
 
@@ -34,11 +34,11 @@ data:
 
     <OS>win, SunOS, Linux, Linux S390, AIX, HP-UX, MacOS</OS>
 
-    <ProductCode>OTN</ProductCode>
+    <ProductCode>MSC</ProductCode>
 
     <ProductID/>
 
-    <ProductName>webMethods Trading Networks</ProductName>
+    <ProductName>webMethods Microservices Runtime</ProductName>
 
     <ProductVersion>10.0</ProductVersion>
 
@@ -76,15 +76,17 @@ data:
 
     <DistributedCache>yes</DistributedCache>
 
-    <EnterpriseGateway>yes</EnterpriseGateway>
+    <EnterpriseGateway>no</EnterpriseGateway>
+
+    <Microservices>yes</Microservices>
 
     </Component>
 
     <Component Id="Trading Networks">
 
-    <ProductCode>OTN</ProductCode>
+    <ProductCode/>
 
-    <MaxPartners>Unlimited</MaxPartners>
+    <MaxPartners/>
 
     </Component>
 
