@@ -7,10 +7,10 @@ pipeline {
         stg_namespace= 'staging'
         dev_env_name = 'development'
         stg_env_name = 'staging'   
-        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim
-        MINOR = sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim
-        PATCH = sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim
-        VERSION = 'v${MAJOR}.${MINOR}.${PATCH}'  
+        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true)
+        MINOR = sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true)
+        PATCH = sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true)
+        VERSION = 'v${MAJOR}.trim.${MINOR}.${PATCH}'  
 
     }    
     stages {
