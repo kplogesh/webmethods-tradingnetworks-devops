@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: tn-job-appprop-cm
+  labels:
+    app: tradingnetworks
+    version: v1.0
+data:
+  application.properties: |
+    jms.DEFAULT_IS_JMS_CONNECTION.clientID=DEFAULT_IS_JMS_CLIENT
+    jms.PE_NONTRANSACTIONAL_ALIAS.clientID=ISb346b24e_edde_4299_a52f_245090fddff7
+    jndi.DEFAULT_IS_JNDI_PROVIDER.providerURL=nsp\://localhost\:9000
+    keystore.DEFAULT_IS_KEYSTORE.keyAlias.ssos.keyAliasPassword=manage
+    keystore.DEFAULT_IS_KEYSTORE.ksLocation=../common/conf/keystore.jks
+    keystore.DEFAULT_IS_KEYSTORE.ksPassword=manage
+    messaging.DefaultEndPoint.CLIENTPREFIX=J_jRQtEolDEurgAVIwwwADXaZQs_
+    messaging.DefaultEndPoint.brokerName=Broker \#1
+    messaging.DefaultEndPoint.clientGroupName=IntegrationServer
+    messaging.DefaultEndPoint.type=UM
+    messaging.DefaultEndPoint.useSourceBrokerKeystore=true
+    messaging.DefaultEndPoint.useSourceBrokerTruststore=true
+    messaging.IS_UM_CONNECTION.CLIENTPREFIX=J_jRQtEolDEurgAVIwwwADXaZQs_
+    messaging.IS_UM_CONNECTION.default=true
+    messaging.IS_UM_CONNECTION.type=UM
+    messaging.IS_UM_CONNECTION.url=nsp\://localhost\:9000
+    settings.watt.server.compile=
+    statisticsdatacollector.monitorConfig.enabled=true
+    statisticsdatacollector.monitorConfig.indexerThreadCount=8
+    statisticsdatacollector.monitorConfig.luceneMemorySize=256
+    statisticsdatacollector.monitorConfig.maxResults=1500000
+    statisticsdatacollector.monitorConfig.retentionDays=30
+    statisticsdatacollector.monitorConfig.searcherThreadCount=2
+    truststore.DEFAULT_IS_TRUSTSTORE.ksLocation=../common/conf/platform_truststore.jks
+    truststore.DEFAULT_IS_TRUSTSTORE.ksPassword=manage
+    user.Administrator.password=manage
+    jdbc.mssqlforwm.dbURL=jdbc:wm:sqlserver://mssql-deployment.insurance:1433;databaseName=webm1015
+    jdbc.mssqlforwm.userid=sa
+    jdbc.mssqlforwm.password=MyC0m9l&xP@ssw0rd
+    jdbcfunc.TN.connPoolAlias=mssqlforwm

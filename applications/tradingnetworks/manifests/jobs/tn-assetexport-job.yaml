@@ -61,7 +61,7 @@ spec:
         name: webmethodslicensekeys
     - name: application-properties
       configMap:
-        name: tn-appprop-cm 
+        name: tn-job-appprop-cm 
     - name: setenv-cp
       configMap:
         name: tn-utilfiles-cm    

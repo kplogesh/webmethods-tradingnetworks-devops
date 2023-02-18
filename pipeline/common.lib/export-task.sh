@@ -7,7 +7,7 @@ sed -i "s/<TAG>/${VERSION}/g" tn-assetexport-job.yaml
 sed -i "s/<TAG>/${VERSION}/g" tn-importexportscript-cm.yaml
  
 # Apply the kubernetes specifications to create the required assets
-kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../tn-utilfiles-cm.yaml -f tn-importexportscript-cm.yaml -f tn-assetexport-job.yaml
+kubectl apply -f ../../env-manifests/$2/tn-job-appprop-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../tn-utilfiles-cm.yaml -f tn-importexportscript-cm.yaml -f tn-assetexport-job.yaml
 echo "Describing the configurations"
 kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
 
@@ -26,6 +26,7 @@ kubectl exec pod-asset-export-tradingnetworks-${VERSION} -- bash -c "cd /opt/sof
 
 # Delete the pod as at this stage, the export job would have got completed
 kubectl delete po pod-asset-export-tradingnetworks-${VERSION}
+kubectl delete cm tn-job-appprop-cm
 if [ -f "ExportedData.zip" ]; then
     echo "ExportedData.zip exists."
     unzip -o ExportedData.zip #unzip the content to make it available for deployment tasks
