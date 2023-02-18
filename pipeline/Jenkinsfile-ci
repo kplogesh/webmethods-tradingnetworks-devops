@@ -6,11 +6,10 @@ pipeline {
         stg_namespace= 'staging'
         dev_env_name = 'development'
         stg_env_name = 'staging'   
-        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
-        MINOR = sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
-        PATCH = sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
-        VERSION = 'v${MAJOR}.${MINOR}.${PATCH}'
-
+        MAJOR=sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        MINOR=sh(script: "sed -n 's/^MINOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        PATCH=sh(script: "sed -n 's/^PATCH=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true).trim()
+        VERSION='v${MAJOR}.${MINOR}.${PATCH}'
     }    
     stages {
         stage('DEV DB Export') {             
@@ -19,7 +18,7 @@ pipeline {
                 sh "echo major version is ${VERSION}"
                 withCredentials([file(credentialsId: 'vadigcs62496k8s', variable: 'KUBECONFIG')]) 
                 {
-                    sh 'pipeline/common.lib/export-task.sh ${VERSION} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
+                    sh 'pipeline/common.lib/export-task.sh ${env.VERSION} ${dev_env_name} ${dev_namespace} ${git_dev_branch_name}'
                 }
             }
         }                    
