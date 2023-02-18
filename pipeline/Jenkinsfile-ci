@@ -7,7 +7,7 @@ pipeline {
         stg_namespace= 'staging'
         dev_env_name = 'development'
         stg_env_name = 'staging'   
-        MAJOR = sh(script: "`sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt`", returnStdout: true)      
+        MAJOR = sh(script: "sed -n 's/^MAJOR=\\(.*\\)/\\1/p' < applications/tradingnetworks/version.txt", returnStdout: true)      
 
     }    
     stages {
