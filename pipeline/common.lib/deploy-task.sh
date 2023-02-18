@@ -15,5 +15,5 @@ sed -i "s/<TAG>/${VERSION}/g" tn-spec-deployment.yaml
 kubectl apply -f .
 
 echo "Describing the configurations"
-kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys tn-utilfiles-cm
+kubectl describe cm tn-appprop-cm webmethodslicensekeys tn-utilfiles-cm
 kubectl describe deploy tradingnetworks
