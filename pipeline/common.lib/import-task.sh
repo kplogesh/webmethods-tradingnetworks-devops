@@ -17,11 +17,12 @@ kubectl describe cm tn-appprop-cm tn-importexportscript-cm webmethodslicensekeys
 # List the k8s jobs that has been created
 kubectl get jobs | grep job-asset-import-tradingnetworks-${VERSION}
 
-# Tail the logs of the job that has been created
-kubectl logs -f job/job-asset-import-tradingnetworks-${VERSION}
-
+echo "Waiting for the job to get completed"
 # Wait for the intermediate pod to be up and running
 kubectl wait --for=condition=complete --timeout=180s job/job-asset-import-tradingnetworks-${VERSION}
+
+# Tail the logs of the job that has been created
+kubectl logs job/job-asset-import-tradingnetworks-${VERSION}
 
 # Delete the configmap containing the exported data from source trading networks
 kubectl delete cm tn-dataload-cm
