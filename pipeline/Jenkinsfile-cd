@@ -2,7 +2,8 @@ pipeline {
     agent any 
     environment {
         prd_namespace= 'production'
-        prd_env_name = 'production'        
+        prd_env_name = 'production'  
+        MAJOR = sh(script: '`sed -n 's/^MAJOR=\(.*\)/\1/p' < applications/tradingnetworks/version.txt`', returnStdout: true)      
     }    
     stages {
         stage('PRD DB Import') {         
