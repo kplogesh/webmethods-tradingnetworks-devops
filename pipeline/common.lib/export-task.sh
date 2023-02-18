@@ -8,8 +8,8 @@ MINOR=`sed -n 's/^MINOR=\(.*\)/\1/p' < ../../version.txt`
 PATCH=`sed -n 's/^PATCH=\(.*\)/\1/p' < ../../version.txt`
 VERSION=v${MAJOR}.${MINOR}.${PATCH}
 
-sed -i "s/<TAG>/${VERSION}/" tn-assetexport-job.yaml
-sed -i "s/<TAG>/${VERSION}/" tn-importexportscript-cm.yaml
+sed -i "s/<TAG>/${VERSION}/g" tn-assetexport-job.yaml
+sed -i "s/<TAG>/${VERSION}/g" tn-importexportscript-cm.yaml
 
 # Apply the kubernetes specifications to create the required assets
 kubectl apply -f ../../env-manifests/$2/tn-appprop-cm.yaml -f ../../env-manifests/$2/webmethods-licenses.yaml -f ../tn-utilfiles-cm.yaml -f tn-importexportscript-cm.yaml -f tn-assetexport-job.yaml
