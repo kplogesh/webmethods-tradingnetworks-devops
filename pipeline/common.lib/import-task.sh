@@ -20,6 +20,9 @@ kubectl get jobs | grep job-asset-import-tradingnetworks-${VERSION}
 # Tail the logs of the job that has been created
 kubectl logs -f job/job-asset-import-tradingnetworks-${VERSION}
 
+# Wait for the intermediate pod to be up and running
+kubectl wait --for=condition=complete --timeout=180s job/job-asset-import-tradingnetworks-${VERSION}
+
 # Delete the configmap containing the exported data from source trading networks
 kubectl delete cm tn-dataload-cm
 kubectl delete job job-asset-import-tradingnetworks-${VERSION}
