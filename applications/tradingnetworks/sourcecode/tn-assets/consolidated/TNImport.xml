@@ -1,7 +1,7 @@
 <ImportOptions>
         <option name="importDataFileName">ExportedData.bin</option>
         <option name="importType">bin</option>
-        <option name="all">true</option>
+        <option name="all">false</option>
         <option name="force">true</option>
         <option name="replaceRuleList">false</option>
         <option name="dbop">true</option>
@@ -12,7 +12,7 @@
         <asset type="processingrule" all="true"/> -->
         <asset type="partner" all="false">
                 <ids>
-                  <value>52k00600gpekm49a00000f51</value>
+                  <value>52k00600gpejr0ut00000f4p</value>
                 </ids>
         </asset>
         <!-- <asset type="fieldgroup" all="true"/>

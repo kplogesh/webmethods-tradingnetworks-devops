@@ -12,7 +12,6 @@ pipeline {
         stage('PRD DB Import') {         
             steps {
                 sh "chmod +x -R ${env.WORKSPACE}"
-                sh "echo major version is ${MAJOR}"
                 withCredentials([file(credentialsId: 'vadigcs62496-production', variable: 'KUBECONFIG')]) 
                 {
                     sh "pipeline/common.lib/import-task.sh ${VERSION} ${prd_env_name} ${prd_namespace}"
