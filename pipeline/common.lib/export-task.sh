@@ -16,6 +16,7 @@ kubectl get pods | grep pod-asset-export-tradingnetworks-${VERSION}
 kubectl describe pod pod-asset-export-tradingnetworks-${VERSION}
 
 # Wait for the intermediate pod to be up and running
+echo "Waiting for the export pod to be ready"
 kubectl wait --for=condition=ready --timeout=120s pod/pod-asset-export-tradingnetworks-${VERSION}
 # Display the logs for the intermediate pod created
 kubectl logs pod-asset-export-tradingnetworks-${VERSION}
